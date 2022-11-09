@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class Login extends React.Component {
   constructor() {
@@ -24,6 +25,11 @@ class Login extends React.Component {
     const emailValidate = email.length >= size;
     const buttonState = nameValidate && emailValidate;
     this.setState({ loginDisabled: !(buttonState) });
+  };
+
+  handleSettingsCLick = () => {
+    const { history } = this.props;
+    history.push('/settings');
   };
 
   render() {
@@ -59,10 +65,23 @@ class Login extends React.Component {
           Play
 
         </button>
-
+        <br />
+        <button
+          type="button"
+          data-testid="btn-settings"
+          onClick={ this.handleSettingsCLick }
+        >
+          Settings
+        </button>
       </div>
     );
   }
 }
+
+Login.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+};
 
 export default Login;
