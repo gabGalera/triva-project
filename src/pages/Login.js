@@ -56,7 +56,7 @@ class Login extends React.Component {
           disabled={ loginDisabled }
         >
           {' '}
-          Salvar
+          Play
 
         </button>
 
