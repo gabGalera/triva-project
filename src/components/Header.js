@@ -8,6 +8,7 @@ class Header extends React.Component {
     // const name = localStorage.getItem('name');
     // const score = localStorage.getItem('score');
     const url = ranking[0].picture;
+    // não tenho certeza sobre o formato dessa const url
     return (
       <div>
         <img
