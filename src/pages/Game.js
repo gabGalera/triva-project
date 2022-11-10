@@ -47,7 +47,6 @@ class Game extends React.Component {
       ))
     );
     multiple.push(correct, incorrectMult);
-    // console.log(multiple, trueFalse);
     multiple.sort(this.randOrd);
     trueFalse.sort(this.randOrd);
 
