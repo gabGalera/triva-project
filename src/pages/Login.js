@@ -41,11 +41,24 @@ class Login extends React.Component {
     await dispatch(tokenAPI());
     const { token } = this.props;
     localStorage.setItem('token', token);
-    const ranking = [{
-      name,
-      score: 0,
-      picture: `https://www.gravatar.com/avatar/${md5(email).toString()}`,
-    }];
+
+    let ranking = JSON.parse(localStorage.getItem('ranking'));
+
+    if (ranking) {
+      ranking.push({
+        name,
+        score: 0,
+        picture: `https://www.gravatar.com/avatar/${md5(email).toString()}`,
+      });
+    } else {
+      ranking = [];
+      ranking.push({
+        name,
+        score: 0,
+        picture: `https://www.gravatar.com/avatar/${md5(email).toString()}`,
+      });
+    }
+
     localStorage.setItem('ranking', JSON.stringify(ranking));
     await dispatch(questionsAPI(token));
     history.push('/game');
