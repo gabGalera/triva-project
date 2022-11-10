@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Header from '../components/Header';
 
 class Game extends React.Component {
   // funçao tirada do site https://leocaseiro.com.br/shuffle-do-php-no-javascript/ para randomização
@@ -55,6 +56,7 @@ class Game extends React.Component {
         {questions
           && (
             <>
+              <Header />
               <h1>Trybe</h1>
               <h2>Score: 0</h2>
               <h3 data-testid="question-category">
