@@ -28,11 +28,11 @@ class Login extends React.Component {
     const buttonState = nameValidate && emailValidate;
     this.setState({ loginDisabled: !(buttonState) });
   };
-  
+
   handleSettingsCLick = () => {
     const { history } = this.props;
     history.push('/settings');
-   };
+  };
 
   handleClick = async () => {
     const { dispatch, history } = this.props;
