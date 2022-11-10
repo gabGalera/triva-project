@@ -2,8 +2,34 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
+import { newQuestion } from '../redux/actions';
 
 class Game extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      shouldAppear: false,
+    };
+  }
+
+  componentDidMount() {
+    this.appearBtn();
+  }
+
+  handleClick = () => {
+    const { dispatch } = this.props;
+    this.setState({ shouldAppear: false });
+    this.appearBtn();
+    dispatch(newQuestion());
+  };
+
+  appearBtn = () => {
+    const seconds = 5000;
+    setTimeout(() => {
+      this.setState({ shouldAppear: true });
+    }, seconds);
+  };
+
   // funçao tirada do site https://leocaseiro.com.br/shuffle-do-php-no-javascript/ para randomização
   randOrd() {
     const myNum = 0.5;
@@ -12,6 +38,7 @@ class Game extends React.Component {
 
   render() {
     const { questions, index, history } = this.props;
+    const { shouldAppear } = this.state;
 
     if (questions.length === 0) {
       localStorage.clear();
@@ -76,6 +103,15 @@ class Game extends React.Component {
                     {multiple.map((element) => element)}
                   </div>
                 )}
+              { shouldAppear && (
+                <button
+                  data-testid="btn-next"
+                  type="button"
+                  onClick={ this.handleClick }
+                >
+                  Next
+                </button>
+              )}
             </>
           )}
 
@@ -94,6 +130,7 @@ Game.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
+  dispatch: PropTypes.func.isRequired,
   questions: PropTypes.arrayOf(PropTypes.shape({
     category: PropTypes.string.isRequired,
     question: PropTypes.string.isRequired,
