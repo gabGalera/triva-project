@@ -6,9 +6,9 @@ class Header extends React.Component {
   render() {
     const ranking = JSON.parse(localStorage.getItem('ranking'));
     // const { name, score } = this.props;
-    const { name } = ranking[0];
-    const { score } = ranking[0];
-    const url = ranking[0].picture;
+    const { name } = ranking[ranking.length - 1];
+    const { score } = ranking[ranking.length - 1];
+    const url = ranking[ranking.length - 1].picture;
     // não tenho certeza sobre o formato dessa url
     return (
       <div>
