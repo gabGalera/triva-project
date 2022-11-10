@@ -1,4 +1,4 @@
-import { TOKEN_API } from '../actions';
+import { TOKEN_API, QUESTION_API } from '../actions';
 
 const INITIAL_STATE = {
   name: '',
@@ -6,6 +6,9 @@ const INITIAL_STATE = {
   score: 0,
   gravatarEmail: '',
   token: '',
+  index: 0,
+  response_code: 0,
+  questions: [],
 };
 
 const player = (state = INITIAL_STATE, action) => {
@@ -14,6 +17,12 @@ const player = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       token: action.payload.token,
+    };
+  case QUESTION_API:
+    return {
+      ...state,
+      questions: action.payload.results,
+      response_code: action.payload.response_code,
     };
   default:
     return {
