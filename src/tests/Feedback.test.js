@@ -8,7 +8,7 @@ describe('Testa a tela de feedbacks', () => {
     const INITIAL_STATE = {
       player: {
       name: '',
-      assertions: '',
+      assertions: 0,
       score: 3,
       gravatarEmail: '',
       token: '',
@@ -25,7 +25,7 @@ describe('Testa a tela de feedbacks', () => {
     const INITIAL_STATE = {
       player: {
       name: '',
-      assertions: '',
+      assertions: 0,
       score: 0,
       gravatarEmail: '',
       token: '',
