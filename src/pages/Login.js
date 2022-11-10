@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import md5 from 'crypto-js/md5';
 import { tokenAPI, questionsAPI } from '../redux/actions';
 
 class Login extends React.Component {
@@ -35,10 +36,17 @@ class Login extends React.Component {
   };
 
   handleClick = async () => {
+    const { email, name } = this.state;
     const { dispatch, history } = this.props;
     await dispatch(tokenAPI());
     const { token } = this.props;
-    localStorage.setItem('token', token);
+    localStorage.setItem('token', JSON.stringify(token));
+    const ranking = [{
+      name,
+      score: 0,
+      picture: `https://www.gravatar.com/avatar/${md5(email).toString()}`,
+    }];
+    localStorage.setItem('ranking', JSON.stringify(ranking));
     await dispatch(questionsAPI(token));
     history.push('/game');
   };
@@ -98,6 +106,7 @@ class Login extends React.Component {
 
 const mapStateToProps = (state) => ({
   token: state.player.token,
+  name: state.player.name,
 });
 
 Login.propTypes = {

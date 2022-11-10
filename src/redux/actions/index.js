@@ -1,5 +1,6 @@
 export const TOKEN_API = 'TOKEN_API';
 export const QUESTION_API = 'QUESTION_API';
+export const RESQUEST_GRAVATAR = 'RESQUEST_GRAVATAR';
 export const CHANGE_INDEX = 'CHANGE_INDEX';
 
 const setTokenApi = (obj) => ({

@@ -4,10 +4,10 @@ import { connect } from 'react-redux';
 
 class Header extends React.Component {
   render() {
-    const ranking = localStorage.getItem('ranking');
-    const { name, score } = this.props;
-    // const name = localStorage.getItem('name');
-    // const score = localStorage.getItem('score');
+    const ranking = JSON.parse(localStorage.getItem('ranking'));
+    // const { name, score } = this.props;
+    const { name } = ranking[0];
+    const { score } = ranking[0];
     const url = ranking[0].picture;
     // não tenho certeza sobre o formato dessa url
     return (
