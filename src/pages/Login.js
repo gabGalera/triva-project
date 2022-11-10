@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { tokenAPI } from '../redux/actions';
+import { tokenAPI, questionsAPI } from '../redux/actions';
 
 class Login extends React.Component {
   constructor() {
@@ -34,6 +34,7 @@ class Login extends React.Component {
     await dispatch(tokenAPI());
     const { token } = this.props;
     localStorage.setItem('token', token);
+    await dispatch(questionsAPI(token));
     history.push('/game');
   };
 

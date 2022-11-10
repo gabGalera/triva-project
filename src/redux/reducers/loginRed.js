@@ -6,6 +6,9 @@ const INITIAL_STATE = {
   score: '',
   gravatarEmail: '',
   token: '',
+  index: 0,
+  response_code: 0,
+  questions: [],
 };
 
 const player = (state = INITIAL_STATE, action) => {
@@ -19,6 +22,7 @@ const player = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       questions: action.payload.results,
+      response_code: action.payload.response_code,
     };
   default:
     return {
