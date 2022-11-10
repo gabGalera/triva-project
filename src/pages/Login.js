@@ -29,6 +29,11 @@ class Login extends React.Component {
     this.setState({ loginDisabled: !(buttonState) });
   };
 
+  handleSettingsCLick = () => {
+    const { history } = this.props;
+    history.push('/settings');
+  };
+
   handleClick = async () => {
     const { dispatch, history } = this.props;
     await dispatch(tokenAPI());
@@ -78,7 +83,14 @@ class Login extends React.Component {
           Play
 
         </button>
-
+        <br />
+        <button
+          type="button"
+          data-testid="btn-settings"
+          onClick={ this.handleSettingsCLick }
+        >
+          Settings
+        </button>
       </div>
     );
   }

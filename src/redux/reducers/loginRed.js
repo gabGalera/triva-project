@@ -3,7 +3,7 @@ import { TOKEN_API, QUESTION_API } from '../actions';
 const INITIAL_STATE = {
   name: '',
   assertions: '',
-  score: '',
+  score: 0,
   gravatarEmail: '',
   token: '',
   index: 0,
