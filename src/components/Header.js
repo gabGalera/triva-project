@@ -1,36 +1,46 @@
-import React from "react";
-// import { connect } from "react-redux";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 class Header extends React.Component {
-  render () {
-    const ranking = localStorage.getItem('ranking')
-    const name = localStorage.getItem('name')
-    const score = localStorage.getItem('score')
-    const url = ranking[0]
-    return(
+  render() {
+    const ranking = localStorage.getItem('ranking');
+    const { name, score } = this.props;
+    // const name = localStorage.getItem('name');
+    // const score = localStorage.getItem('score');
+    const url = ranking[0].picture;
+    // não tenho certeza sobre o formato dessa url
+    return (
       <div>
         <img
-        src={ url }
-        alt={ name }
-        data-testid="header-profile-picture"
+          src={ url }
+          alt={ name }
+          data-testid="header-profile-picture"
         />
         <h2
-        data-testid="header-player-name"
-        >{ name }
+          data-testid="header-player-name"
+        >
+          { name }
         </h2>
         <h3
-        data-testid="header-score"
+          data-testid="header-score"
         >
-        { score }
+          { score }
         </h3>
       </div>
-    )
+    );
   }
 }
 
-// const mapStateToProps = (state) => {
-  
-// }
+Header.propTypes = {
+  name: PropTypes.string.isRequired,
+  score: PropTypes.string.isRequired,
+};
 
-// export default connect(mapStateToProps)(Header);
-export default Header;
+const mapStateToProps = (state) => ({
+  name: state.player.name,
+  score: state.player.score,
+});
+
+export default connect(mapStateToProps)(Header);
+// export default Header;
