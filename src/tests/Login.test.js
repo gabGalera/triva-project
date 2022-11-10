@@ -5,8 +5,8 @@ import App from '../App'
 import userEvent from '@testing-library/user-event';
 
 describe('Testando a tela de login', () => {
-  test('Se o inputs e o botão funcionam', () => {
-    renderWithRouterAndReducer(<App />)
+  test('Se o inputs e o botão funcionam', async () => {
+    const { history } = renderWithRouterAndReducer(<App />)
 
     const inputs = screen.getAllByRole('textbox')
     const name = inputs[0]
@@ -19,8 +19,13 @@ describe('Testando a tela de login', () => {
     userEvent.type(email, 'youPass@gmail.com');
 
     expect(button).not.toBeDisabled()
-
+    
     userEvent.click(button)
+    
+    const newPage = await screen.findByText(/gameon/i)
+    
+    expect(newPage).toBeInTheDocument()
+    expect(history.location.pathname).toMatch('/game')
 
   })
 })

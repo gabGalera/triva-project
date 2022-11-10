@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { tokenAPI } from '../redux/actions';
 
 class Login extends React.Component {
   constructor() {
@@ -26,17 +28,31 @@ class Login extends React.Component {
     const buttonState = nameValidate && emailValidate;
     this.setState({ loginDisabled: !(buttonState) });
   };
-
+  
   handleSettingsCLick = () => {
     const { history } = this.props;
     history.push('/settings');
+   };
+
+  handleClick = async () => {
+    const { dispatch, history } = this.props;
+    await dispatch(tokenAPI());
+    const { token } = this.props;
+    localStorage.setItem('token', token);
+    history.push('/game');
   };
 
   render() {
     const { name, email, loginDisabled } = this.state;
     return (
       <div>
-
+        {/* <header className="App-header">
+          <img src={ logo } className="App-logo" alt="logo" />
+          <p>SUA VEZ</p>
+        </header> */}
+        <h1>
+          Trivia
+        </h1>
         <input
           name="name"
           type="text"
@@ -60,6 +76,7 @@ class Login extends React.Component {
           type="button"
           data-testid="btn-play"
           disabled={ loginDisabled }
+          onClick={ this.handleClick }
         >
           {' '}
           Play
@@ -78,10 +95,15 @@ class Login extends React.Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  token: state.player.token,
+});
+
 Login.propTypes = {
+  token: PropTypes.string.isRequired,
+  dispatch: PropTypes.func.isRequired,
   history: PropTypes.shape({
-    push: PropTypes.func,
+    push: PropTypes.func.isRequired,
   }).isRequired,
 };
-
-export default Login;
+export default connect(mapStateToProps)(Login);
