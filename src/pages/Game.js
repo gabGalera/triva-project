@@ -3,14 +3,26 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 class Game extends React.Component {
-  // funçao tirada do site https://leocaseiro.com.br/shuffle-do-php-no-javascript/ para randomização
+  constructor() {
+    super();
+    this.state = {
+      clicked: false,
+    };
+  }
+
+  handleClick = () => {
+    this.setState({ clicked: true });
+  };
+
   randOrd() {
+    // funçao tirada do site https://leocaseiro.com.br/shuffle-do-php-no-javascript/ para randomização
     const myNum = 0.5;
     return (Math.round(Math.random()) - myNum);
   }
 
   render() {
     const { questions, index, history } = this.props;
+    const { clicked } = this.state;
 
     if (questions.length === 0) {
       localStorage.clear();
@@ -21,6 +33,8 @@ class Game extends React.Component {
       <button
         type="button"
         data-testid="correct-answer"
+        className={ clicked ? 'correctAnswerClicked' : 'notClickedAnswer' }
+        onClick={ this.handleClick }
       >
         {questions[index].correct_answer}
       </button>
@@ -29,6 +43,8 @@ class Game extends React.Component {
       <button
         type="button"
         data-testid={ `wrong-answer-${index}` }
+        className={ clicked ? 'wrongAnswerClicked' : 'notClickedAnswer' }
+        onClick={ this.handleClick }
       >
         {questions[index].incorrect_answers[0]}
       </button>
@@ -41,6 +57,8 @@ class Game extends React.Component {
           type="button"
           key={ element }
           data-testid={ `wrong-answer-${index}` }
+          className={ clicked ? 'wrongAnswerClicked' : 'notClickedAnswer' }
+          onClick={ this.handleClick }
         >
           {element}
         </button>
