@@ -40,7 +40,7 @@ class Login extends React.Component {
     const { dispatch, history } = this.props;
     await dispatch(tokenAPI());
     const { token } = this.props;
-    localStorage.setItem('token', JSON.stringify(token));
+    localStorage.setItem('token', token);
     const ranking = [{
       name,
       score: 0,

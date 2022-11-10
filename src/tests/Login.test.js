@@ -1,47 +1,23 @@
 import React from 'react';
-import { screen, waitFor } from '@testing-library/react' 
+import { screen, waitFor, waitForElementToBeRemoved } from '@testing-library/react' 
 import renderWithRouterAndReducer from './helpers/renderWithRouterAndRedux'
 import App from '../App'
 import userEvent from '@testing-library/user-event';
+import { act } from 'react-dom/test-utils';
 
 const mock = require('../redux/actions/index')
 
 describe('Testando a tela de login', () => {
+  afterEach(() => jest.clearAllMocks())
+
   test('Se o inputs e o botão de play funcionam', async () => {
-    // const INITIAL_STATE = {
-    //   player: {
-    //   name: '',
-    //   assertions: '',
-    //   score: 0,
-    //   gravatarEmail: '',
-    //   token: '',
-    //   index: 0,
-    //   response_code: 0,
-    //   questions: [
-    //     {
-    //               "category":"Entertainment: Video Games",
-    //               "type":"multiple",
-    //               "difficulty":"easy",
-    //               "question":"What is the first weapon you acquire in Half-Life?",
-    //               "correct_answer":"A crowbar",
-    //               "incorrect_answers":[
-    //                   "A pistol",
-    //                   "The H.E.V suit",
-    //                   "Your fists"
-    //               ]
-    //             }
-    //   ],
-    // }}
-
-    const { history } = renderWithRouterAndReducer(<App />, INITIAL_STATE)
-
-    mock.TOKEN_API = jest.fn().mockImplementation(() => ({
+    jest.spyOn(global, 'fetch');
+    global.fetch.mockResolvedValue({
+    json: jest.fn().mockResolvedValueOnce({
       "response_code":0,
       "response_message":"Token Generated Successfully!",
       "token":"f00cb469ce38726ee00a7c6836761b0a4fb808181a125dcde6d50a9f3c9127b6"
-    }))
-
-    mock.QUESTION_API = jest.fn().mockImplementation(() => ({
+    }).mockResolvedValueOnce({
       "response_code":0,
       "results":[
           {
@@ -55,9 +31,22 @@ describe('Testando a tela de login', () => {
                 "The H.E.V suit",
                 "Your fists"
             ]
+          },
+          {             
+            "category":"Entertainment: Video Games",
+            "type":"boolean",
+            "difficulty":"hard",
+            "question":"TF2: Sentry rocket damage falloff is calculated based on the distance between the sentry and the enemy, not the engineer and the enemy",
+            "correct_answer":"False",
+            "incorrect_answers":[
+                "True"
+            ]
           }
       ]
-    }))
+    })
+    })
+
+    const { history } = renderWithRouterAndReducer(<App />)
 
     const inputs = screen.getAllByRole('textbox')
     const name = inputs[0]
@@ -72,11 +61,11 @@ describe('Testando a tela de login', () => {
     expect(buttonPlay).not.toBeDisabled()
     
     userEvent.click(buttonPlay)
-    
-    await waitFor(async () => expect(await screen.findByText(/trybe/i)).toBeInTheDocument())
-      .then(() => console.log('hello'))
-  
-    const newPage = screen.findByText(/trybe/i);
+    console.log(buttonPlay)
+
+    await waitForElementToBeRemoved(buttonPlay);
+
+    const newPage = screen.getByText(/trybe/i);
     expect(newPage).toBeInTheDocument()
     expect(history.location.pathname).toMatch('/game')
     
