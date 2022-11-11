@@ -1,6 +1,6 @@
 import { TOKEN_API, QUESTION_API, CHANGE_INDEX, CHANGE_SCORE } from '../actions';
 
-const numberThree = 3;
+const numberThree = 4;
 
 const INITIAL_STATE = {
   name: '',

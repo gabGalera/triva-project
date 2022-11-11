@@ -9,7 +9,7 @@ class Feedback extends React.Component {
     const { score, assertions } = this.props;
     const testScore = 3;
 
-    if (score < testScore) {
+    if (assertions < testScore) {
       return (
         <>
           <Header />
@@ -30,7 +30,7 @@ class Feedback extends React.Component {
       );
     }
 
-    if (score >= testScore) {
+    if (assertions >= testScore) {
       return (
         <>
           <Header />
