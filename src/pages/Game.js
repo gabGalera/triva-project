@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
-import { newQuestion } from '../redux/actions';
+import { changeScore, newQuestion } from '../redux/actions';
 
 class Game extends React.Component {
   constructor() {
@@ -15,24 +15,55 @@ class Game extends React.Component {
     };
   }
 
-  // handleClick = () => {
-  //  this.setState({ clicked: true });
-  // };
+  // componentDidMount = () => {
+  //   this.intervalCount();
+  // }
 
   handleClickNext = () => {
     const { dispatch } = this.props;
-    this.setState({ shouldAppear: false });
+    this.setState({ shouldAppear: false, clicked: false });
     dispatch(newQuestion());
   };
 
-  appearBtn = (entryTimer) => {
+  // myTime = () => {
+  //   const { dispatch } = this.props;
+  //   dispatch(changeTime(1));
+  // }
+
+  // intervalCount = () => {
+  //   setInterval(this.myTime(), 1000);
+  // }
+
+  checkScore = (time, answer) => {
+    const { questions, index, dispatch } = this.props;
+    const difficult = questions[index].difficulty;
+    const tenNum = 10;
+    const thousand = 1000;
+    const three = 3;
+
+    if (answer === false) {
+      return dispatch(changeScore(0));
+    }
+    switch (difficult) {
+    case 'easy':
+      return dispatch(changeScore((tenNum + ((time / thousand) * 1))));
+    case 'medium':
+      return dispatch(changeScore((tenNum + ((time / thousand) * 2))));
+    case 'hard':
+      return dispatch(changeScore((tenNum + ((time / thousand) * three))));
+    default:
+      return null;
+    }
+  };
+
+  appearBtn = (entryTimer, time, answer) => {
     clearTimeout(entryTimer);
+    this.checkScore(time, answer);
     this.setState({ shouldAppear: true, clicked: true });
   };
 
   // funçao tirada do site https://leocaseiro.com.br/shuffle-do-php-no-javascript/ para randomização
   randOrd() {
-    // funçao tirada do site https://leocaseiro.com.br/shuffle-do-php-no-javascript/ para randomização
     const myNum = 0.5;
     return (Math.round(Math.random()) - myNum);
   }
@@ -40,11 +71,16 @@ class Game extends React.Component {
   render() {
     const { questions, index, history } = this.props;
     const { shouldAppear, isDisabled, timer, clicked } = this.state;
+    let timer2 = timer;
 
     const timerFunc = setTimeout(() => {
+      const thousand = 1000;
       this.setState({
         isDisabled: true,
       });
+      setInterval(() => {
+        timer2 -= thousand;
+      }, thousand);
     }, timer);
 
     if (questions.length === 0) {
@@ -59,7 +95,7 @@ class Game extends React.Component {
         data-testid="correct-answer"
         className={ clicked ? 'correctAnswerClicked' : 'notClickedAnswer' }
         //      onClick={ this.handleClick }
-        onClick={ () => this.appearBtn(timerFunc) }
+        onClick={ () => this.appearBtn(timerFunc, timer2, true) }
         disabled={ isDisabled }
       >
         {questions[index].correct_answer}
@@ -71,7 +107,7 @@ class Game extends React.Component {
         data-testid={ `wrong-answer-${index}` }
         className={ clicked ? 'wrongAnswerClicked' : 'notClickedAnswer' }
         //      onClick={ this.handleClick }
-        onClick={ () => this.appearBtn(timerFunc) }
+        onClick={ () => this.appearBtn(timerFunc, timer2, false) }
         disabled={ isDisabled }
       >
         {questions[index].incorrect_answers[0]}
@@ -87,7 +123,7 @@ class Game extends React.Component {
           data-testid={ `wrong-answer-${index}` }
           className={ clicked ? 'wrongAnswerClicked' : 'notClickedAnswer' }
           //        onClick={ this.handleClick }
-          onClick={ () => this.appearBtn(timerFunc) }
+          onClick={ () => this.appearBtn(timerFunc, timer2, false) }
           disabled={ isDisabled }
         >
           {element}
@@ -155,6 +191,7 @@ Game.propTypes = {
   questions: PropTypes.arrayOf(PropTypes.shape({
     category: PropTypes.string.isRequired,
     question: PropTypes.string.isRequired,
+    difficulty: PropTypes.string.isRequired,
     incorrect_answers: PropTypes.arrayOf(PropTypes.string).isRequired,
     correct_answer: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
