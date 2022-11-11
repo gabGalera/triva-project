@@ -69,3 +69,7 @@ body {
 .wrongAnswerClicked {
   border: 3px solid red;
 }
+
+.notClickedAnswer {
+  border: 1px solid black;
+}
