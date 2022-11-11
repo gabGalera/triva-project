@@ -88,7 +88,11 @@ describe('Testando o componente Game', () => {
   test('Testa se a API falhou', async () => {
     jest.spyOn(global, 'fetch');
     global.fetch.mockResolvedValue({
-    json: jest.fn().mockResolvedValueOnce(tokenMock).mockResolvedValueOnce(dataMock)
+    json: jest.fn().mockResolvedValueOnce(tokenMock)
+      .mockResolvedValueOnce({
+        "response_code":0,
+        "results":[]}
+        )
     })
 
     const { history, store } = renderWithRouterAndReducer(<App />)
