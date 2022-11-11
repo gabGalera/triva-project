@@ -18,7 +18,7 @@ class Game extends React.Component {
   // handleClick = () => {
   //  this.setState({ clicked: true });
   // };
-  
+
   handleClickNext = () => {
     const { dispatch } = this.props;
     this.setState({ shouldAppear: false });
@@ -51,15 +51,14 @@ class Game extends React.Component {
       localStorage.clear();
       return history.push('/');
     }
-    
+
     const trueFalse = [];
     const correct = (
       <button
         type="button"
         data-testid="correct-answer"
-
         className={ clicked ? 'correctAnswerClicked' : 'notClickedAnswer' }
-//      onClick={ this.handleClick }
+        //      onClick={ this.handleClick }
         onClick={ () => this.appearBtn(timerFunc) }
         disabled={ isDisabled }
       >
@@ -70,9 +69,8 @@ class Game extends React.Component {
       <button
         type="button"
         data-testid={ `wrong-answer-${index}` }
-
         className={ clicked ? 'wrongAnswerClicked' : 'notClickedAnswer' }
-//      onClick={ this.handleClick }
+        //      onClick={ this.handleClick }
         onClick={ () => this.appearBtn(timerFunc) }
         disabled={ isDisabled }
       >
@@ -87,9 +85,8 @@ class Game extends React.Component {
           type="button"
           key={ element }
           data-testid={ `wrong-answer-${index}` }
-
           className={ clicked ? 'wrongAnswerClicked' : 'notClickedAnswer' }
-//        onClick={ this.handleClick }
+          //        onClick={ this.handleClick }
           onClick={ () => this.appearBtn(timerFunc) }
           disabled={ isDisabled }
         >
