@@ -32,10 +32,18 @@ const player = (state = INITIAL_STATE, action) => {
       index: state.index === numberThree ? 0 : state.index + 1,
     };
   case CHANGE_SCORE:
+    if (action.payload === 0) {
+      return {
+        ...state,
+        score: state.score + action.payload,
+      };
+    }
     return {
       ...state,
       score: state.score + action.payload,
+      assertions: state.assertions + 1,
     };
+
   default:
     return {
       ...state,
