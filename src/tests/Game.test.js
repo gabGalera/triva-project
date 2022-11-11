@@ -7,7 +7,11 @@ import App from '../App'
 
 describe('Testando o componente Game', () => {
   
+  // Fake timers using Jest
   afterEach(() => jest.clearAllMocks());
+  beforeEach(() => {
+    jest.useFakeTimers()
+  })
   
   test('Jogando uma partida', async () => {
     jest.spyOn(global, 'fetch');
@@ -71,6 +75,7 @@ describe('Testando o componente Game', () => {
     expect(score).toBe(210);
 
     userEvent.click(screen.getByRole('button', { name: /next/i }));
+    jest.useFakeTimers()
 
     userEvent.click(screen.getByText(/false/i));
 
@@ -91,11 +96,12 @@ describe('Testando o componente Game', () => {
     json: jest.fn().mockResolvedValueOnce(tokenMock)
       .mockResolvedValueOnce({
         "response_code":0,
-        "results":[]}
+        "results":[],
+      }
         )
     })
 
-    const { history, store } = renderWithRouterAndReducer(<App />)
+    const { history } = renderWithRouterAndReducer(<App />)
 
     const inputs = screen.getAllByRole('textbox')
     const name = inputs[0]
@@ -110,14 +116,14 @@ describe('Testando o componente Game', () => {
     expect(buttonPlay).not.toBeDisabled()
     
     userEvent.click(buttonPlay)
-
-    await waitForElementToBeRemoved(buttonPlay);
+    
+    await waitFor(() => expect(history.location.pathname).not.toBe('/'))
 
   })
 
   jest.setTimeout(32000);
 
-  test.skip('Testando a funcionalidade do Timeout', async () => {
+  test('Testando a funcionalidade do Timeout', async () => {
     jest.spyOn(global, 'fetch');
     global.fetch.mockResolvedValue({
     json: jest.fn().mockResolvedValueOnce(tokenMock).mockResolvedValueOnce(dataMock)
