@@ -1,14 +1,14 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 class Header extends React.Component {
   render() {
-    const ranking = localStorage.getItem('ranking');
-    const { name, score } = this.props;
-    // const name = localStorage.getItem('name');
-    // const score = localStorage.getItem('score');
-    const url = ranking[0].picture;
+    const ranking = JSON.parse(localStorage.getItem('ranking'));
+    // const { name, score } = this.props;
+    const { name } = ranking[ranking.length - 1];
+    const { score } = ranking[ranking.length - 1];
+    const url = ranking[ranking.length - 1].picture;
     // não tenho certeza sobre o formato dessa url
     return (
       <div>
@@ -32,10 +32,10 @@ class Header extends React.Component {
   }
 }
 
-Header.propTypes = {
-  name: PropTypes.string.isRequired,
-  score: PropTypes.string.isRequired,
-};
+// Header.propTypes = {
+//   name: PropTypes.string.isRequired,
+//   score: PropTypes.string.isRequired,
+// };
 
 const mapStateToProps = (state) => ({
   name: state.player.name,

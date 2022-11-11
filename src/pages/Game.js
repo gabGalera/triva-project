@@ -1,19 +1,36 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Header from '../components/Header';
+import { newQuestion } from '../redux/actions';
 
 class Game extends React.Component {
   constructor() {
     super();
     this.state = {
       clicked: false,
+      shouldAppear: false,
+      isDisabled: false,
+      timer: 30000,
     };
   }
 
-  handleClick = () => {
-    this.setState({ clicked: true });
+  // handleClick = () => {
+  //  this.setState({ clicked: true });
+  // };
+  
+  handleClickNext = () => {
+    const { dispatch } = this.props;
+    this.setState({ shouldAppear: false });
+    dispatch(newQuestion());
   };
 
+  appearBtn = (entryTimer) => {
+    clearTimeout(entryTimer);
+    this.setState({ shouldAppear: true, clicked: true });
+  };
+
+  // funçao tirada do site https://leocaseiro.com.br/shuffle-do-php-no-javascript/ para randomização
   randOrd() {
     // funçao tirada do site https://leocaseiro.com.br/shuffle-do-php-no-javascript/ para randomização
     const myNum = 0.5;
@@ -22,19 +39,29 @@ class Game extends React.Component {
 
   render() {
     const { questions, index, history } = this.props;
-    const { clicked } = this.state;
+    const { shouldAppear, isDisabled, timer, clicked } = this.state;
+
+    const timerFunc = setTimeout(() => {
+      this.setState({
+        isDisabled: true,
+      });
+    }, timer);
 
     if (questions.length === 0) {
       localStorage.clear();
       return history.push('/');
     }
+    
     const trueFalse = [];
     const correct = (
       <button
         type="button"
         data-testid="correct-answer"
+
         className={ clicked ? 'correctAnswerClicked' : 'notClickedAnswer' }
-        onClick={ this.handleClick }
+//      onClick={ this.handleClick }
+        onClick={ () => this.appearBtn(timerFunc) }
+        disabled={ isDisabled }
       >
         {questions[index].correct_answer}
       </button>
@@ -43,8 +70,11 @@ class Game extends React.Component {
       <button
         type="button"
         data-testid={ `wrong-answer-${index}` }
+
         className={ clicked ? 'wrongAnswerClicked' : 'notClickedAnswer' }
-        onClick={ this.handleClick }
+//      onClick={ this.handleClick }
+        onClick={ () => this.appearBtn(timerFunc) }
+        disabled={ isDisabled }
       >
         {questions[index].incorrect_answers[0]}
       </button>
@@ -57,8 +87,11 @@ class Game extends React.Component {
           type="button"
           key={ element }
           data-testid={ `wrong-answer-${index}` }
+
           className={ clicked ? 'wrongAnswerClicked' : 'notClickedAnswer' }
-          onClick={ this.handleClick }
+//        onClick={ this.handleClick }
+          onClick={ () => this.appearBtn(timerFunc) }
+          disabled={ isDisabled }
         >
           {element}
         </button>
@@ -73,6 +106,7 @@ class Game extends React.Component {
         {questions
           && (
             <>
+              <Header />
               <h1>Trybe</h1>
               <h2>Score: 0</h2>
               <h3 data-testid="question-category">
@@ -92,6 +126,16 @@ class Game extends React.Component {
                     {multiple.map((element) => element)}
                   </div>
                 )}
+              { shouldAppear && (
+                <button
+                  data-testid="btn-next"
+                  type="button"
+                  onClick={ this.handleClickNext }
+                  disabled={ isDisabled }
+                >
+                  Next
+                </button>
+              )}
             </>
           )}
 
@@ -110,6 +154,7 @@ Game.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
+  dispatch: PropTypes.func.isRequired,
   questions: PropTypes.arrayOf(PropTypes.shape({
     category: PropTypes.string.isRequired,
     question: PropTypes.string.isRequired,

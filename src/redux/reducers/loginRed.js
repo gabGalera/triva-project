@@ -1,8 +1,10 @@
-import { TOKEN_API, QUESTION_API } from '../actions';
+import { TOKEN_API, QUESTION_API, CHANGE_INDEX } from '../actions';
+
+const numberThree = 3;
 
 const INITIAL_STATE = {
   name: '',
-  assertions: '',
+  assertions: 0,
   score: 0,
   gravatarEmail: '',
   token: '',
@@ -23,6 +25,11 @@ const player = (state = INITIAL_STATE, action) => {
       ...state,
       questions: action.payload.results,
       response_code: action.payload.response_code,
+    };
+  case CHANGE_INDEX:
+    return {
+      ...state,
+      index: state.index === numberThree ? 0 : state.index + 1,
     };
   default:
     return {
