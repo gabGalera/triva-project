@@ -13,8 +13,8 @@ class Feedback extends React.Component {
       return (
         <>
           <Header />
-          <h1>{score}</h1>
-          <h1>{assertions}</h1>
+          <h1 data-testid="feedback-total-score">{score}</h1>
+          <h1 data-testid="feedback-total-question">{assertions}</h1>
           <h1 data-testid="feedback-text">Could be better...</h1>
           <Link
             to="/ranking"
@@ -34,8 +34,8 @@ class Feedback extends React.Component {
       return (
         <>
           <Header />
-          <h1>{score}</h1>
-          <h1>{assertions}</h1>
+          <h1 data-testid="feedback-total-score">{score}</h1>
+          <h1 data-testid="feedback-total-question">{assertions}</h1>
           <h1 data-testid="feedback-text">Well Done!</h1>
           <Link
             to="/ranking"
