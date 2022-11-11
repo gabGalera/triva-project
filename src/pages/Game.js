@@ -12,6 +12,7 @@ class Game extends React.Component {
       shouldAppear: false,
       isDisabled: false,
       timer: 30000,
+      questionsNumber: 0,
     };
   }
 
@@ -20,9 +21,18 @@ class Game extends React.Component {
   // };
 
   handleClickNext = () => {
-    const { dispatch } = this.props;
-    this.setState({ shouldAppear: false, clicked: false });
-    dispatch(newQuestion());
+    const { dispatch, history } = this.props;
+    const { questionsNumber } = this.state;
+    const maxQuestion = 4;
+    this.setState((oldState) => ({
+      shouldAppear: false,
+      clicked: false,
+      questionsNumber: oldState.questionsNumber + 1,
+    }));
+    if (questionsNumber >= maxQuestion) {
+      return history.push('/feedback');
+    }
+    return dispatch(newQuestion());
   };
 
   appearBtn = (entryTimer) => {
@@ -127,7 +137,7 @@ class Game extends React.Component {
                 <button
                   data-testid="btn-next"
                   type="button"
-                  onClick={ this.handleClickNext }
+                  onClick={ () => { this.handleClickNext(); } }
                   disabled={ isDisabled }
                 >
                   Next
