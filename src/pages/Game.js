@@ -9,25 +9,34 @@ class Game extends React.Component {
     super();
     this.state = {
       shouldAppear: false,
+      isDisabled: false,
+      timer: 30000,
     };
   }
 
-  componentDidMount() {
-    this.appearBtn();
-  }
+  // componentDidUpdate() {
+  //   this.setState({
+  //     shouldAppear: false,
+  //   });
+  // }
+
+  // componentDidUpdate() {
+  //   this.appearBtn();
+  // }
 
   handleClick = () => {
     const { dispatch } = this.props;
     this.setState({ shouldAppear: false });
-    this.appearBtn();
+    // this.appearBtn();
     dispatch(newQuestion());
   };
 
-  appearBtn = () => {
-    const seconds = 5000;
-    setTimeout(() => {
-      this.setState({ shouldAppear: true });
-    }, seconds);
+  appearBtn = (entryTimer) => {
+    // const seconds = 5000;
+    // setTimeout(() => {
+    clearTimeout(entryTimer);
+    this.setState({ shouldAppear: true });
+    // }, seconds);
   };
 
   // funçao tirada do site https://leocaseiro.com.br/shuffle-do-php-no-javascript/ para randomização
@@ -38,7 +47,13 @@ class Game extends React.Component {
 
   render() {
     const { questions, index, history } = this.props;
-    const { shouldAppear } = this.state;
+    const { shouldAppear, isDisabled, timer } = this.state;
+
+    const timerFunc = setTimeout(() => {
+      this.setState({
+        isDisabled: true,
+      });
+    }, timer);
 
     if (questions.length === 0) {
       localStorage.clear();
@@ -49,6 +64,8 @@ class Game extends React.Component {
       <button
         type="button"
         data-testid="correct-answer"
+        onClick={ () => this.appearBtn(timerFunc) }
+        disabled={ isDisabled }
       >
         {questions[index].correct_answer}
       </button>
@@ -57,6 +74,8 @@ class Game extends React.Component {
       <button
         type="button"
         data-testid={ `wrong-answer-${index}` }
+        onClick={ () => this.appearBtn(timerFunc) }
+        disabled={ isDisabled }
       >
         {questions[index].incorrect_answers[0]}
       </button>
@@ -69,6 +88,8 @@ class Game extends React.Component {
           type="button"
           key={ element }
           data-testid={ `wrong-answer-${index}` }
+          onClick={ () => this.appearBtn(timerFunc) }
+          disabled={ isDisabled }
         >
           {element}
         </button>
@@ -108,6 +129,7 @@ class Game extends React.Component {
                   data-testid="btn-next"
                   type="button"
                   onClick={ this.handleClick }
+                  disabled={ isDisabled }
                 >
                   Next
                 </button>

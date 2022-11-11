@@ -3,9 +3,6 @@ import { screen, waitFor, waitForElementToBeRemoved } from '@testing-library/rea
 import renderWithRouterAndReducer from './helpers/renderWithRouterAndRedux'
 import App from '../App'
 import userEvent from '@testing-library/user-event';
-import { act } from 'react-dom/test-utils';
-
-const mock = require('../redux/actions/index')
 
 describe('Testando a tela de login', () => {
   afterEach(() => jest.clearAllMocks())

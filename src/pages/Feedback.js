@@ -6,7 +6,6 @@ class Feedback extends React.Component {
   render() {
     const { score, assertions } = this.props;
     const testScore = 3;
-    console.log(score);
 
     if (score < testScore) {
       return (
@@ -27,12 +26,6 @@ class Feedback extends React.Component {
         </>
       );
     }
-
-    // return (
-    //   <div>
-    //     <h1 data-testid="feedback-text">Feedback</h1>
-    //   </div>
-    // );
   }
 }
 
