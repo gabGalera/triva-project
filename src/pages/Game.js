@@ -21,7 +21,7 @@ class Game extends React.Component {
 
   handleClickNext = () => {
     const { dispatch } = this.props;
-    this.setState({ shouldAppear: false });
+    this.setState({ shouldAppear: false, clicked: false });
     dispatch(newQuestion());
   };
 
