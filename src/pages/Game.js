@@ -59,10 +59,8 @@ class Game extends React.Component {
       return dispatch(changeScore((tenNum + ((time / thousand) * 1))));
     case 'medium':
       return dispatch(changeScore((tenNum + ((time / thousand) * 2))));
-    case 'hard':
-      return dispatch(changeScore((tenNum + ((time / thousand) * three))));
     default:
-      return null;
+      return dispatch(changeScore((tenNum + ((time / thousand) * three))));
     }
   };
 

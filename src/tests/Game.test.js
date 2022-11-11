@@ -9,7 +9,7 @@ describe('Testando o componente Game', () => {
   
   afterEach(() => jest.clearAllMocks());
   
-  test('Se as perguntas estão funcionando quando acertamos', async () => {
+  test('Jogando uma partida', async () => {
     jest.spyOn(global, 'fetch');
     global.fetch.mockResolvedValue({
     json: jest.fn().mockResolvedValueOnce(tokenMock).mockResolvedValueOnce(dataMock)
@@ -37,18 +37,82 @@ describe('Testando o componente Game', () => {
     expect(newPage).toBeInTheDocument()
     expect(history.location.pathname).toMatch('/game')
 
-    userEvent.click(screen.getAllByRole('button')[0])
+    userEvent.click(screen.getByText(/crowbar/i))
     expect(screen.getByRole('button', { name: /next/i })).toBeInTheDocument()
 
     let { player: { score } } = store.getState();
 
-    console.log(store.getState())
+    console.log(store.getState().player.questions)
     
     expect(score).toBe(40)
 
-    expect(screen.getByRole('button', { name: /next/i }))
+    userEvent.click(screen.getByRole('button', { name: /next/i })); 
+    
+    userEvent.click(screen.getByText(/false/i))
+
+    score = store.getState().player.score;
+    
+    expect(score).toBe(140)
+
+    userEvent.click(screen.getByRole('button', { name: /next/i }));
+
+    userEvent.click(screen.getByText(/950/))
+
+    score = store.getState().player.score;
+
+    expect(score).toBe(140);
+
+    userEvent.click(screen.getByRole('button', { name: /next/i }));
+
+    userEvent.click(screen.getByText(/chip/i));
+
+    score = store.getState().player.score;
+
+    expect(score).toBe(210);
+
+    userEvent.click(screen.getByRole('button', { name: /next/i }));
+
+    userEvent.click(screen.getByText(/false/i));
+
+    score = store.getState().player.score;
+
+    expect(score).toBe(310);
+
+    userEvent.click(screen.getByRole('button', { name: /next/i }));
+    
+    expect(screen.getByText(/nome/i)).toBeInTheDocument()
+  })
 
   })
+
+  test('Testa se a API falhou', async () => {
+    jest.spyOn(global, 'fetch');
+    global.fetch.mockResolvedValue({
+    json: jest.fn().mockResolvedValueOnce(tokenMock)
+      .mockResolvedValueOnce({
+        "response_code":0,
+        "results":[]}
+        )
+    })
+
+    const { history, store } = renderWithRouterAndReducer(<App />)
+
+    const inputs = screen.getAllByRole('textbox')
+    const name = inputs[0]
+    const email = inputs[1]
+    const buttonPlay = screen.getByTestId('btn-play')
+
+    expect(buttonPlay).toBeDisabled()
+
+    userEvent.type(name, 'Nome de teste');
+    userEvent.type(email, 'youPass@gmail.com');
+
+    expect(buttonPlay).not.toBeDisabled()
+    
+    userEvent.click(buttonPlay)
+
+    await waitForElementToBeRemoved(buttonPlay);
+
   })
 
   jest.setTimeout(32000);
