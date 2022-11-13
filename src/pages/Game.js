@@ -21,7 +21,7 @@ class Game extends React.Component {
   // }
 
   handleClickNext = () => {
-    const { dispatch, history } = this.props;
+    const { dispatch, history, score } = this.props;
     const { questionsNumber } = this.state;
     const maxQuestion = 4;
     this.setState((oldState) => ({
@@ -30,6 +30,15 @@ class Game extends React.Component {
       questionsNumber: oldState.questionsNumber + 1,
     }));
     if (questionsNumber >= maxQuestion) {
+      const ranking = localStorage.getItem('ranking');
+      const rankingObj = JSON.parse(ranking);
+      console.log(rankingObj[rankingObj.length - 1]);
+      rankingObj[rankingObj.length - 1] = {
+        name: rankingObj[rankingObj.length - 1].name,
+        picture: rankingObj[rankingObj.length - 1].picture,
+        score };
+      console.log(rankingObj[rankingObj.length - 1]);
+      localStorage.setItem('ranking', JSON.stringify(rankingObj));
       return history.push('/feedback');
     }
     return dispatch(newQuestion());
@@ -189,6 +198,7 @@ const mapStateToProps = (state) => ({
   questions: state.player.questions,
   token: state.player.token,
   index: state.player.index,
+  score: state.player.score,
 });
 
 Game.propTypes = {
@@ -205,6 +215,7 @@ Game.propTypes = {
     type: PropTypes.string.isRequired,
   })).isRequired,
   index: PropTypes.number.isRequired,
+  score: PropTypes.number.isRequired,
 };
 
 export default connect(mapStateToProps)(Game);

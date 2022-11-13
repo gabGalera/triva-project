@@ -2,10 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 class Ranking extends React.Component {
-  componentDidMount() {
-    const ranking = JSON.parse(localStorage.getItem('ranking'));
-    console.log(ranking);
-  }
+  // componentDidMount() {
+  //   const ranking = JSON.parse(localStorage.getItem('ranking'));
+  //   console.log(ranking);
+  // }
 
   render() {
     const ranking = JSON.parse(localStorage.getItem('ranking'));
