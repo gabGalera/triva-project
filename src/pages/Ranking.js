@@ -2,15 +2,16 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 class Ranking extends React.Component {
-  // componentDidMount() {
-  //   const ranking = JSON.parse(localStorage.getItem('ranking'));
-  //   console.log(ranking);
-  // }
+  componentDidMount() {
+    const ranking = JSON.parse(localStorage.getItem('ranking'));
+    console.log(ranking);
+  }
 
   render() {
     const ranking = JSON.parse(localStorage.getItem('ranking'));
     // funçao tirada do site https://medium.com/coding-at-dawn/how-to-sort-an-array-numerically-in-javascript-2b22710e3958#:~:text=We%20can%20use%20.,%3Eb%2Da)%20for%20descending%20order.
     const sortedRanking = ranking.sort((a, b) => a.score - b.score);
+    const reverseSortedRanking = sortedRanking.reverse();
     return (
       <div>
         <h1>Ranking</h1>
@@ -25,7 +26,7 @@ class Ranking extends React.Component {
           </button>
         </Link>
         <ul>
-          {sortedRanking.map(((player, index) => (
+          {reverseSortedRanking.map(((player, index) => (
             <li
               key={ player.name }
             >

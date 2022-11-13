@@ -32,12 +32,12 @@ class Game extends React.Component {
     if (questionsNumber >= maxQuestion) {
       const ranking = localStorage.getItem('ranking');
       const rankingObj = JSON.parse(ranking);
-      console.log(rankingObj[rankingObj.length - 1]);
+      // console.log(rankingObj[rankingObj.length - 1]);
       rankingObj[rankingObj.length - 1] = {
         name: rankingObj[rankingObj.length - 1].name,
         picture: rankingObj[rankingObj.length - 1].picture,
         score };
-      console.log(rankingObj[rankingObj.length - 1]);
+      // console.log(rankingObj[rankingObj.length - 1]);
       localStorage.setItem('ranking', JSON.stringify(rankingObj));
       return history.push('/feedback');
     }
