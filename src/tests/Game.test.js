@@ -122,14 +122,12 @@ describe('Testando o componente Game', () => {
     expect(buttonPlay).not.toBeDisabled()
     
     userEvent.click(buttonPlay)
-    
-   
-
+  
   })
 
   jest.setTimeout(32000);
 
-  test.skip('Testando a funcionalidade do Timeout', async () => {
+  test('Testando a funcionalidade do Timeout', async () => {
     jest.spyOn(global, 'fetch');
     global.fetch.mockResolvedValue({
     json: jest.fn().mockResolvedValueOnce(tokenMock).mockResolvedValueOnce(dataMock)
