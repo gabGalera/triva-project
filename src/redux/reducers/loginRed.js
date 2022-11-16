@@ -1,6 +1,7 @@
-import { TOKEN_API, QUESTION_API, CHANGE_INDEX } from '../actions';
+import { TOKEN_API,
+  QUESTION_API, CHANGE_INDEX, CHANGE_SCORE, ZERO_SCORE } from '../actions';
 
-const numberThree = 3;
+const numberThree = 4;
 
 const INITIAL_STATE = {
   name: '',
@@ -30,6 +31,23 @@ const player = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       index: state.index === numberThree ? 0 : state.index + 1,
+    };
+  case CHANGE_SCORE:
+    if (action.payload === 0) {
+      return {
+        ...state,
+        score: state.score + action.payload,
+      };
+    }
+    return {
+      ...state,
+      score: state.score + action.payload,
+      assertions: state.assertions + 1,
+    };
+  case ZERO_SCORE:
+    return {
+      ...state,
+      score: 0,
     };
   default:
     return {

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 
 class Feedback extends React.Component {
@@ -8,12 +9,12 @@ class Feedback extends React.Component {
     const { score, assertions, history } = this.props;
     const testScore = 3;
 
-    if (score < testScore) {
+    if (assertions < testScore) {
       return (
         <>
           <Header />
-          <h1>{score}</h1>
-          <h1>{assertions}</h1>
+          <h1 data-testid="feedback-total-score">{score}</h1>
+          <h1 data-testid="feedback-total-question">{assertions}</h1>
           <h1 data-testid="feedback-text">Could be better...</h1>
           <button
             data-testid="btn-play-again"
@@ -22,16 +23,26 @@ class Feedback extends React.Component {
           >
             Play Again
           </button>
+          <Link
+            to="/ranking"
+          >
+            <button
+              data-testid="btn-ranking"
+              type="button"
+            >
+              Ranking
+            </button>
+          </Link>
         </>
       );
     }
 
-    if (score >= testScore) {
+    if (assertions >= testScore) {
       return (
         <>
           <Header />
-          <h1>{score}</h1>
-          <h1>{assertions}</h1>
+          <h1 data-testid="feedback-total-score">{score}</h1>
+          <h1 data-testid="feedback-total-question">{assertions}</h1>
           <h1 data-testid="feedback-text">Well Done!</h1>
           <button
             data-testid="btn-play-again"
@@ -40,6 +51,16 @@ class Feedback extends React.Component {
           >
             Play Again
           </button>
+          <Link
+            to="/ranking"
+          >
+            <button
+              data-testid="btn-ranking"
+              type="button"
+            >
+              Ranking
+            </button>
+          </Link>
         </>
       );
     }
