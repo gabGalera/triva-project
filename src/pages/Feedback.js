@@ -6,7 +6,9 @@ import Header from '../components/Header';
 
 class Feedback extends React.Component {
   render() {
-    const { score, assertions, history } = this.props;
+    const { score, assertions,
+      // history,
+    } = this.props;
     const testScore = 3;
 
     if (assertions < testScore) {
@@ -16,13 +18,13 @@ class Feedback extends React.Component {
           <h1 data-testid="feedback-total-score">{score}</h1>
           <h1 data-testid="feedback-total-question">{assertions}</h1>
           <h1 data-testid="feedback-text">Could be better...</h1>
-          <button
+          {/* <button
             data-testid="btn-play-again"
             type="button"
             onClick={ history.push('/') }
           >
             Play Again
-          </button>
+          </button> */}
           <Link
             to="/ranking"
           >
@@ -31,6 +33,16 @@ class Feedback extends React.Component {
               type="button"
             >
               Ranking
+            </button>
+          </Link>
+          <Link
+            to="/"
+          >
+            <button
+              data-testid="btn-play-again"
+              type="button"
+            >
+              Play Again
             </button>
           </Link>
         </>
@@ -44,13 +56,13 @@ class Feedback extends React.Component {
           <h1 data-testid="feedback-total-score">{score}</h1>
           <h1 data-testid="feedback-total-question">{assertions}</h1>
           <h1 data-testid="feedback-text">Well Done!</h1>
-          <button
+          {/* <button
             data-testid="btn-play-again"
             type="button"
             onClick={ history.push('/') }
           >
             Play Again
-          </button>
+          </button> */}
           <Link
             to="/ranking"
           >
@@ -59,6 +71,16 @@ class Feedback extends React.Component {
               type="button"
             >
               Ranking
+            </button>
+          </Link>
+          <Link
+            to="/"
+          >
+            <button
+              data-testid="btn-play-again"
+              type="button"
+            >
+              Play Again
             </button>
           </Link>
         </>
@@ -73,9 +95,9 @@ const mapStateToProps = (state) => ({
 });
 
 Feedback.propTypes = {
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
-  }).isRequired,
+  // history: PropTypes.shape({
+  //   push: PropTypes.func.isRequired,
+  // }).isRequired,
   score: PropTypes.number.isRequired,
   assertions: PropTypes.number.isRequired,
 };
