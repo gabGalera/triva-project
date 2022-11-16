@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
-import { changeScore, newQuestion } from '../redux/actions';
+import { changeScore, newQuestion, zeroScore } from '../redux/actions';
 
 class Game extends React.Component {
   constructor() {
@@ -37,8 +37,10 @@ class Game extends React.Component {
         name: rankingObj[rankingObj.length - 1].name,
         picture: rankingObj[rankingObj.length - 1].picture,
         score };
+      const sortedRanking = rankingObj.sort((a, b) => b.score - a.score);
       // console.log(rankingObj[rankingObj.length - 1]);
-      localStorage.setItem('ranking', JSON.stringify(rankingObj));
+      dispatch(zeroScore());
+      localStorage.setItem('ranking', JSON.stringify(sortedRanking));
       return history.push('/feedback');
     }
     return dispatch(newQuestion());

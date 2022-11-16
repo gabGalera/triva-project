@@ -1,4 +1,5 @@
-import { TOKEN_API, QUESTION_API, CHANGE_INDEX, CHANGE_SCORE } from '../actions';
+import { TOKEN_API,
+  QUESTION_API, CHANGE_INDEX, CHANGE_SCORE, ZERO_SCORE } from '../actions';
 
 const numberThree = 4;
 
@@ -43,7 +44,11 @@ const player = (state = INITIAL_STATE, action) => {
       score: state.score + action.payload,
       assertions: state.assertions + 1,
     };
-
+  case ZERO_SCORE:
+    return {
+      ...state,
+      score: 0,
+    };
   default:
     return {
       ...state,
