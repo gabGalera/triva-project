@@ -6,17 +6,14 @@ import renderWithRouterAndReducer from './helpers/renderWithRouterAndRedux';
 import App from '../App'
 
 describe('Testando o componente Game', () => {
-  
+
   // Fake timers using Jest
   afterEach(() => jest.clearAllMocks());
-  beforeEach(() => {
-    jest.useFakeTimers()
-  })
-  
+
   test('Jogando uma partida', async () => {
     jest.spyOn(global, 'fetch');
     global.fetch.mockResolvedValue({
-    json: jest.fn().mockResolvedValueOnce(tokenMock).mockResolvedValueOnce(dataMock)
+      json: jest.fn().mockResolvedValueOnce(tokenMock).mockResolvedValueOnce(dataMock)
     })
 
     const { history, store } = renderWithRouterAndReducer(<App />)
@@ -32,7 +29,7 @@ describe('Testando o componente Game', () => {
     userEvent.type(email, 'youPass@gmail.com');
 
     expect(buttonPlay).not.toBeDisabled()
-    
+
     userEvent.click(buttonPlay)
 
     await waitForElementToBeRemoved(buttonPlay);
@@ -47,15 +44,15 @@ describe('Testando o componente Game', () => {
     let { player: { score } } = store.getState();
 
     console.log(store.getState().player.questions)
-    
+
     expect(score).toBe(40)
 
-    userEvent.click(screen.getByRole('button', { name: /next/i })); 
-    
+    userEvent.click(screen.getByRole('button', { name: /next/i }));
+
     userEvent.click(screen.getByText(/false/i))
 
     score = store.getState().player.score;
-    
+
     expect(score).toBe(140)
 
     userEvent.click(screen.getByRole('button', { name: /next/i }));
@@ -86,82 +83,85 @@ describe('Testando o componente Game', () => {
     expect(screen.getByRole('button', { name: /next/i })).not.toBeDisabled()
 
     userEvent.click(screen.getByRole('button', { name: /next/i }));
-    
+
     expect(screen.getByText(/nome/i)).toBeInTheDocument()
+    
+    userEvent.click(screen.getByRole('button', { name: /ranking/i }));
+    // screen.debug()
   })
 
-  })
+})
 
-  test('Testa se a API falhou', async () => {
-    jest.spyOn(global, 'fetch');
-    global.fetch.mockResolvedValue({
+test('Testa se a API falhou', async () => {
+  jest.spyOn(global, 'fetch');
+  global.fetch.mockResolvedValue({
     json: jest.fn().mockResolvedValueOnce(tokenMock)
       .mockResolvedValueOnce({
-        "response_code":0,
-        "results":[],
+        "response_code": 0,
+        "results": [],
       }
-        )
-    })
-
-    const { history } = renderWithRouterAndReducer(<App />)
-
-    history.push('/game')
-    
-    await waitFor(() => expect(history.location.pathname).toBe('/'),
-    {timeout: 30000})
-    
-    screen.debug()
-    const inputs = screen.getAllByRole('textbox')
-    const name = inputs[0]
-    const email = inputs[1]
-    const buttonPlay = screen.getByTestId('btn-play')
-
-    expect(buttonPlay).toBeDisabled()
-
-    userEvent.type(name, 'Nome de teste');
-    userEvent.type(email, 'youPass@gmail.com');
-
-    expect(buttonPlay).not.toBeDisabled()
-    
-    userEvent.click(buttonPlay)
-  
+      )
   })
 
-  jest.setTimeout(32000);
+  const { history } = renderWithRouterAndReducer(<App />)
 
-  test('Testando a funcionalidade do Timeout', async () => {
-    jest.spyOn(global, 'fetch');
-    global.fetch.mockResolvedValue({
+  history.push('/game')
+
+  await waitFor(() => expect(history.location.pathname).toBe('/'),
+    { timeout: 30000 })
+
+  screen.debug()
+  const inputs = screen.getAllByRole('textbox')
+  const name = inputs[0]
+  const email = inputs[1]
+  const buttonPlay = screen.getByTestId('btn-play')
+
+  expect(buttonPlay).toBeDisabled()
+
+  userEvent.type(name, 'Nome de teste');
+  userEvent.type(email, 'youPass@gmail.com');
+
+  expect(buttonPlay).not.toBeDisabled()
+
+  userEvent.click(buttonPlay)
+
+})
+
+jest.setTimeout(32000);
+
+test('Testando a funcionalidade do Timeout', async () => {
+  jest.spyOn(global, 'fetch');
+  global.fetch.mockResolvedValue({
     json: jest.fn().mockResolvedValueOnce(tokenMock).mockResolvedValueOnce(dataMock)
-    })
-
-    const { history } = renderWithRouterAndReducer(<App />)
-
-    const inputs = screen.getAllByRole('textbox')
-    const name = inputs[0]
-    const email = inputs[1]
-    const buttonPlay = screen.getByTestId('btn-play')
-
-    expect(buttonPlay).toBeDisabled()
-
-    userEvent.type(name, 'Nome de teste');
-    userEvent.type(email, 'youPass@gmail.com');
-
-    expect(buttonPlay).not.toBeDisabled()
-    
-    userEvent.click(buttonPlay)
-    console.log(buttonPlay)
-
-    await waitForElementToBeRemoved(buttonPlay);
-
-    const newPage = screen.getByText(/trybe/i);
-    expect(newPage).toBeInTheDocument()
-    expect(history.location.pathname).toMatch('/game')
-
-    // jest.setTimeout(31000)
-
-    await waitFor(() => expect(screen.getAllByRole('button')[0]).toBeDisabled(), {
-      timeout: 31000,
-    })
   })
+
+  const { history } = renderWithRouterAndReducer(<App />)
+
+  const inputs = screen.getAllByRole('textbox')
+  const name = inputs[0]
+  const email = inputs[1]
+  const buttonPlay = screen.getByTestId('btn-play')
+
+  expect(buttonPlay).toBeDisabled()
+
+  userEvent.type(name, 'Nome de teste');
+  userEvent.type(email, 'youPass@gmail.com');
+
+  expect(buttonPlay).not.toBeDisabled()
+
+  userEvent.click(buttonPlay)
+  console.log(buttonPlay)
+
+  await waitForElementToBeRemoved(buttonPlay);
+
+  const newPage = screen.getByText(/trybe/i);
+  expect(newPage).toBeInTheDocument()
+  expect(history.location.pathname).toMatch('/game')
+
+  // jest.setTimeout(31000)
+
+  await waitFor(() => expect(screen.getAllByRole('button')[0]).toBeDisabled(), {
+    timeout: 31000,
+  })
+})
   // jest.setTimeout(5000);
