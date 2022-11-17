@@ -16,8 +16,20 @@ class Game extends React.Component {
     };
   }
 
-  // componentDidMount = () => {
-  //   this.intervalCount();
+  // componentDidMount() {
+  //   const clockFunction = () => {
+  //     if (document.getElementById('clock').innerHTML > 0) {
+  //       document.getElementById('clock').innerHTML -= 1;
+  //     } else {
+  //       document.getElementById('clock').innerHTML = 'Acabou o tempo.';
+  //     }
+  //   };
+  //   const thousand = 1000;
+  //   setInterval(clockFunction, thousand);
+  // }
+
+  // componentWillUnmount() {
+  //   this.turnClockOff();
   // }
 
   handleClickNext = () => {
@@ -29,16 +41,15 @@ class Game extends React.Component {
       clicked: false,
       questionsNumber: oldState.questionsNumber + 1,
     }));
+    document.getElementById('clock').innerHTML = 30;
     if (questionsNumber >= maxQuestion) {
       const ranking = localStorage.getItem('ranking');
       const rankingObj = JSON.parse(ranking);
-      // console.log(rankingObj[rankingObj.length - 1]);
       rankingObj[rankingObj.length - 1] = {
         name: rankingObj[rankingObj.length - 1].name,
         picture: rankingObj[rankingObj.length - 1].picture,
         score };
       const sortedRanking = rankingObj.sort((a, b) => b.score - a.score);
-      // console.log(rankingObj[rankingObj.length - 1]);
       dispatch(zeroScore());
       localStorage.setItem('ranking', JSON.stringify(sortedRanking));
       return history.push('/feedback');
@@ -147,6 +158,9 @@ class Game extends React.Component {
               <Header />
               <h1>Trybe</h1>
               <h2>Score: 0</h2>
+              <h2 id="clock">
+                {30}
+              </h2>
               <h3 data-testid="question-category">
                 { questions[index].category }
               </h3>
