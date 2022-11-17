@@ -46,15 +46,6 @@ class Game extends React.Component {
     return dispatch(newQuestion());
   };
 
-  // myTime = () => {
-  //   const { dispatch } = this.props;
-  //   dispatch(changeTime(1));
-  // }
-
-  // intervalCount = () => {
-  //   setInterval(this.myTime(), 1000);
-  // }
-
   checkScore = (time, answer) => {
     const { questions, index, dispatch } = this.props;
     const difficult = questions[index].difficulty;
@@ -90,16 +81,11 @@ class Game extends React.Component {
   render() {
     const { questions, index, history } = this.props;
     const { shouldAppear, isDisabled, timer, clicked } = this.state;
-    let timer2 = timer;
 
     const timerFunc = setTimeout(() => {
-      const thousand = 1000;
       this.setState({
         isDisabled: true,
       });
-      setInterval(() => {
-        timer2 -= thousand;
-      }, thousand);
     }, timer);
 
     if (questions.length === 0) {
@@ -114,7 +100,7 @@ class Game extends React.Component {
         data-testid="correct-answer"
         className={ clicked ? 'correctAnswerClicked' : 'notClickedAnswer' }
         //      onClick={ this.handleClick }
-        onClick={ () => this.appearBtn(timerFunc, timer2, true) }
+        onClick={ () => this.appearBtn(timerFunc, timer, true) }
         disabled={ isDisabled }
       >
         {questions[index].correct_answer}
@@ -126,7 +112,7 @@ class Game extends React.Component {
         data-testid={ `wrong-answer-${index}` }
         className={ clicked ? 'wrongAnswerClicked' : 'notClickedAnswer' }
         //      onClick={ this.handleClick }
-        onClick={ () => this.appearBtn(timerFunc, timer2, false) }
+        onClick={ () => this.setState({ shouldAppear: true, clicked: true }) }
         disabled={ isDisabled }
       >
         {questions[index].incorrect_answers[0]}
@@ -142,7 +128,7 @@ class Game extends React.Component {
           data-testid={ `wrong-answer-${index}` }
           className={ clicked ? 'wrongAnswerClicked' : 'notClickedAnswer' }
           //        onClick={ this.handleClick }
-          onClick={ () => this.appearBtn(timerFunc, timer2, false) }
+          onClick={ () => this.appearBtn(timerFunc, timer, false) }
           disabled={ isDisabled }
         >
           {element}

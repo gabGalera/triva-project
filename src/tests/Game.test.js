@@ -75,13 +75,15 @@ describe('Testando o componente Game', () => {
     expect(score).toBe(210);
 
     userEvent.click(screen.getByRole('button', { name: /next/i }));
-    jest.useFakeTimers()
+    // jest.useFakeTimers()
 
-    userEvent.click(screen.getByText(/false/i));
+    userEvent.click(screen.getByText(/true/i));
 
     score = store.getState().player.score;
 
-    expect(score).toBe(310);
+    expect(score).toBe(210);
+
+    expect(screen.getByRole('button', { name: /next/i })).not.toBeDisabled()
 
     userEvent.click(screen.getByRole('button', { name: /next/i }));
     
