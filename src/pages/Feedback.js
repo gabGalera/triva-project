@@ -6,7 +6,8 @@ import Header from '../components/Header';
 
 class Feedback extends React.Component {
   render() {
-    const { score, assertions,
+    // const ranking = JSON.parse(localStorage.getItem('ranking'));
+    const { assertions, score,
       // history,
     } = this.props;
     const testScore = 3;
@@ -16,7 +17,12 @@ class Feedback extends React.Component {
         <>
           <Header />
           <h1 data-testid="feedback-total-score">{score}</h1>
-          <h1 data-testid="feedback-total-question">{assertions}</h1>
+          <h1 data-testid="feedback-total-question">
+            {
+              assertions
+            }
+
+          </h1>
           <h1 data-testid="feedback-text">Could be better...</h1>
           {/* <button
             data-testid="btn-play-again"
@@ -54,7 +60,12 @@ class Feedback extends React.Component {
         <>
           <Header />
           <h1 data-testid="feedback-total-score">{score}</h1>
-          <h1 data-testid="feedback-total-question">{assertions}</h1>
+          <h1 data-testid="feedback-total-question">
+            {
+              assertions
+            }
+
+          </h1>
           <h1 data-testid="feedback-text">Well Done!</h1>
           {/* <button
             data-testid="btn-play-again"

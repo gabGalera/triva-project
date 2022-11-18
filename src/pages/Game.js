@@ -6,18 +6,6 @@ import { changeScore, newQuestion, zeroScore } from '../redux/actions';
 // import background from '../images/background.png';
 
 class Game extends React.Component {
-  // clock = setInterval(() => {
-  //   // const thousand = 1000;
-  //   if (document.getElementById('clock').innerHTML > 1) {
-  //     document.getElementById('clock').innerHTML -= 1;
-  //   } else if (document.getElementById('clock').innerHTML === 1) {
-  //     document.getElementById('clock').innerHTML = 'Acabou o tempo.';
-  //     clearInterval(clock);
-  //   } else {
-  //     clearInterval(clock);
-  //   }
-  // }, 1000);
-
   constructor() {
     super();
     this.state = {
@@ -41,12 +29,7 @@ class Game extends React.Component {
         clearInterval(clock);
       }
     }, thousand);
-    // const callback = ;
   }
-
-  // componentWillUnmount() {
-  //   clearInterval(this.callClock);
-  // }
 
   handleClickNext = () => {
     const { dispatch, history, score } = this.props;
@@ -77,7 +60,6 @@ class Game extends React.Component {
     const { questions, index, dispatch } = this.props;
     const difficult = questions[index].difficulty;
     const tenNum = 10;
-    const thousand = 1000;
     const three = 3;
 
     if (answer === false) {
@@ -85,11 +67,11 @@ class Game extends React.Component {
     }
     switch (difficult) {
     case 'easy':
-      return dispatch(changeScore((tenNum + ((time / thousand) * 1))));
+      return dispatch(changeScore((tenNum + ((time) * 1))));
     case 'medium':
-      return dispatch(changeScore((tenNum + ((time / thousand) * 2))));
+      return dispatch(changeScore((tenNum + ((time) * 2))));
     default:
-      return dispatch(changeScore((tenNum + ((time / thousand) * three))));
+      return dispatch(changeScore((tenNum + ((time) * three))));
     }
   };
 
@@ -108,7 +90,11 @@ class Game extends React.Component {
   render() {
     const { questions, index, history } = this.props;
     const { shouldAppear, isDisabled, timer, clicked } = this.state;
-
+    let passingTimer = '';
+    if (document.getElementById('clock')) {
+      passingTimer = document.getElementById('clock').innerHTML;
+      console.log(passingTimer);
+    }
     const timerFunc = setTimeout(() => {
       this.setState({
         isDisabled: true,
@@ -127,7 +113,7 @@ class Game extends React.Component {
         data-testid="correct-answer"
         className={ clicked ? 'correctAnswerClicked' : 'notClickedAnswer' }
         //      onClick={ this.handleClick }
-        onClick={ () => this.appearBtn(timerFunc, timer, true) }
+        onClick={ () => this.appearBtn(timerFunc, passingTimer, true) }
         disabled={ isDisabled }
       >
         {questions[index].correct_answer}
@@ -155,7 +141,7 @@ class Game extends React.Component {
           data-testid={ `wrong-answer-${index}` }
           className={ clicked ? 'wrongAnswerClicked' : 'notClickedAnswer' }
           //        onClick={ this.handleClick }
-          onClick={ () => this.appearBtn(timerFunc, timer, false) }
+          onClick={ () => this.appearBtn(timerFunc, passingTimer, false) }
           disabled={ isDisabled }
         >
           {element}
