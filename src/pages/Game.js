@@ -3,8 +3,21 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
 import { changeScore, newQuestion, zeroScore } from '../redux/actions';
+// import background from '../images/background.png';
 
 class Game extends React.Component {
+  // clock = setInterval(() => {
+  //   // const thousand = 1000;
+  //   if (document.getElementById('clock').innerHTML > 1) {
+  //     document.getElementById('clock').innerHTML -= 1;
+  //   } else if (document.getElementById('clock').innerHTML === 1) {
+  //     document.getElementById('clock').innerHTML = 'Acabou o tempo.';
+  //     clearInterval(clock);
+  //   } else {
+  //     clearInterval(clock);
+  //   }
+  // }, 1000);
+
   constructor() {
     super();
     this.state = {
@@ -16,20 +29,23 @@ class Game extends React.Component {
     };
   }
 
-  // componentDidMount() {
-  //   const clockFunction = () => {
-  //     if (document.getElementById('clock').innerHTML > 0) {
-  //       document.getElementById('clock').innerHTML -= 1;
-  //     } else {
-  //       document.getElementById('clock').innerHTML = 'Acabou o tempo.';
-  //     }
-  //   };
-  //   const thousand = 1000;
-  //   setInterval(clockFunction, thousand);
-  // }
+  componentDidMount() {
+    const thousand = 1000;
+    const clock = setInterval(() => {
+      if (document.getElementById('clock') === null) {
+        clearInterval(clock);
+      } else if (document.getElementById('clock').innerHTML > 1) {
+        document.getElementById('clock').innerHTML -= 1;
+      } else if (document.getElementById('clock').innerHTML === 1) {
+        document.getElementById('clock').innerHTML = 'Acabou o tempo.';
+        clearInterval(clock);
+      }
+    }, thousand);
+    // const callback = ;
+  }
 
   // componentWillUnmount() {
-  //   this.turnClockOff();
+  //   clearInterval(this.callClock);
   // }
 
   handleClickNext = () => {
@@ -151,11 +167,12 @@ class Game extends React.Component {
     trueFalse.sort(this.randOrd);
 
     return (
-      <div>
-        {questions
+      <>
+        <Header />
+        <div>
+          {questions
           && (
             <>
-              <Header />
               <h1>Trybe</h1>
               <h2>Score: 0</h2>
               <h2 id="clock">
@@ -191,7 +208,8 @@ class Game extends React.Component {
             </>
           )}
 
-      </div>
+        </div>
+      </>
     );
   }
 }

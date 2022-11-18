@@ -87,8 +87,9 @@ class Login extends React.Component {
             height: '36.28922%', // 266 / 733 (original height)
             left: '41.01563%',
             top: '6.13506%',
+
             backgroundImage: `url(${trivia})`,
-            backgroundSize: 'cover',
+            backgroundSize: '100% 100%',
           } }
         />
         <div
@@ -116,7 +117,7 @@ class Login extends React.Component {
             name="email"
             type="email"
             data-testid="input-gravatar-email"
-            placeholder="Qual o seu e-mail do gravatar?"
+            placeholder="Qual é o seu e-mail do gravatar?"
             onChange={ this.handle }
             value={ email }
             style={ {

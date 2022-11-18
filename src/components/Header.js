@@ -7,18 +7,52 @@ class Header extends React.Component {
     const ranking = JSON.parse(localStorage.getItem('ranking'));
     const { score } = this.props;
     const { name } = ranking[ranking.length - 1];
-    // const { score } = ranking[ranking.length - 1];
     const url = ranking[ranking.length - 1].picture;
-    // não tenho certeza sobre o formato dessa url
     return (
-      <div>
+      <div
+        style={ {
+          // position: 'absolute',
+          // width: '100%',
+          // height: '100%',
+          // left: '0px',
+          // top: '0px',
+
+          // background: '#FFFFFF',
+        } }
+      >
         <img
           src={ url }
           alt={ name }
           data-testid="header-profile-picture"
+          style={ {
+            // position: 'absolute',
+            // width: '37px',
+            // height: '37px',
+            // left: '696px',
+            // top: '39px',
+          } }
         />
         <h2
           data-testid="header-player-name"
+          style={ {
+            position: 'absolute',
+            width: '146px',
+            height: '24px',
+            left: '746px',
+            top: '49px',
+
+            // font-family: 'Epilogue';
+            // font-style: normal;
+            // font-weight: 400;
+            // font-size: 16px;
+            // line-height: 150%;
+            /* identical to box height, or 24px */
+
+            display: 'flex',
+            alignItems: 'center',
+
+            color: '#000000',
+          } }
         >
           { name }
         </h2>
