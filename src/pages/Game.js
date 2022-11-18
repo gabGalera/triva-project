@@ -155,7 +155,16 @@ class Game extends React.Component {
     return (
       <>
         <Header />
-        <div>
+        <div
+          style={ {
+            position: 'absolute',
+            width: '1280px',
+            height: '625px',
+            left: '0px',
+            top: '85px',
+
+          } }
+        >
           {questions
           && (
             <>
@@ -163,6 +172,7 @@ class Game extends React.Component {
               <h2>Score: 0</h2>
               <h2 id="clock">
                 {30}
+
               </h2>
               <h3 data-testid="question-category">
                 { questions[index].category }
