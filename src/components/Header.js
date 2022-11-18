@@ -17,6 +17,7 @@ class Header extends React.Component {
           height: '17.546%', // 113 / (113 + 625)
           left: '0px',
           top: '0px',
+          zIndex: '1',
 
           background: '#FFFFFF',
         } }

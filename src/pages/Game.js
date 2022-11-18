@@ -1,9 +1,11 @@
+/* eslint-disable max-lines */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
 import { changeScore, newQuestion, zeroScore } from '../redux/actions';
-// import background from '../images/background.png';
+import trivia from '../images/trivia.png';
+import background from '../images/background.png';
 
 class Game extends React.Component {
   constructor() {
@@ -93,7 +95,6 @@ class Game extends React.Component {
     let passingTimer = '';
     if (document.getElementById('clock')) {
       passingTimer = document.getElementById('clock').innerHTML;
-      console.log(passingTimer);
     }
     const timerFunc = setTimeout(() => {
       this.setState({
@@ -158,28 +159,115 @@ class Game extends React.Component {
         <div
           style={ {
             position: 'absolute',
-            width: '1280px',
-            height: '625px',
-            left: '0px',
-            top: '85px',
+            width: '15.3976%', // 197.09 / 1280
+            height: '26.8536%', // 198.18 / (113 + 625)
+            left: '16.7968%', // 215 / 1280
+            top: '3.523%', // 26 / (113 + 625)
+            backgroundImage: `url(${trivia})`,
+            backgroundSize: '100% 100%',
+            // backgroundRepeat: 'no-repeat',
 
+            zIndex: '1',
+          } }
+        />
+        <div
+          style={ {
+            position: 'absolute',
+            width: '100%',
+            height: '84.688%', // 625 / (113 + 625)
+            left: '0px',
+            top: '11.517%', // 85 / (113 + 625)
+
+            backgroundImage: `url(${background})`,
+            backgroundSize: 'contain',
+            // color: whi,
+            // zIndex: 1,
           } }
         >
           {questions
           && (
             <>
-              <h1>Trybe</h1>
-              <h2>Score: 0</h2>
-              <h2 id="clock">
-                {30}
+              <div
+                data-testid="question-category"
+                style={ {
+                  position: 'absolute',
+                  width: '32.2656%', // 413 / 1280
+                  height: '6.0975%', // 45 / (113 + 625)
+                  left: '8.9%', // 114 / 1280
+                  top: '37.2629%', // 275 / (113 + 625)
 
-              </h2>
-              <h3 data-testid="question-category">
-                { questions[index].category }
-              </h3>
-              <p data-testid="question-text">
-                { questions[index].question }
-              </p>
+                  background: '#F9BA18',
+                  boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+                  borderRadius: '100px',
+
+                  display: 'flex',
+                  alignItems: 'center',
+                  textAlign: 'center',
+                  justifyContent: 'center',
+
+                  letterSpacing: '0.12em',
+
+                  zIndex: '2',
+                  color: '#FFFFFF',
+                } }
+              >
+                { questions[index].category.toUpperCase() }
+              </div>
+              <div
+                data-testid="question-text"
+                style={ {
+                  position: 'absolute',
+                  width: '34.2968%', // 439 / 1280
+                  height: '38.75%', // 286 / (113 + 625)
+                  left: '7.89%', // 101 / 1280
+                  top: '40.65%', // 300 / (113 + 625)
+
+                  display: 'flex',
+                  alignItems: 'center',
+                  textAlign: 'center',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+
+                  fontFamily: 'Epilogue',
+                  fonStyle: 'normal',
+                  fontWeight: '400',
+                  fontSize: '16px', // 16 /
+                  lineHeight: '150%',
+                  /* or 24px */
+
+                  color: '#000000',
+
+                  background: '#FFFFFF',
+                  zIndex: '1',
+                  boxShadow: '1px 4px 13px 2px rgba(0, 0, 0, 0.2)',
+                  borderRadius: '10px',
+                } }
+              >
+                <div>
+                  { questions[index].question }
+                </div>
+              </div>
+              <div
+                style={ {
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  position: 'absolute',
+                  width: '32.26%', // 413 / 1280
+                  height: '5.15%', // 38 / (113 + 625)
+                  left: '8.9%', // 114 / 1280
+                  top: '73.85%',
+                  zIndex: '6',
+                  // background: 'red',
+                } }
+              >
+                Tempo:
+                {' '}
+                <div id="clock">
+                  {30}
+                </div>
+                s
+              </div>
               { questions[index].type === 'boolean'
                 ? (
                   <div data-testid="answer-options">
@@ -191,20 +279,31 @@ class Game extends React.Component {
                     {multiple.map((element) => element)}
                   </div>
                 )}
-              { shouldAppear && (
-                <button
-                  data-testid="btn-next"
-                  type="button"
-                  onClick={ () => { this.handleClickNext(); } }
-                  disabled={ isDisabled }
-                >
-                  Next
-                </button>
-              )}
             </>
           )}
-
         </div>
+        <footer
+          style={ {
+            position: 'absolute',
+            width: '100%',
+            height: '26.56%', // 166 / (625)
+            left: '0px',
+            top: '73.4%', // tentativa e erro
+
+            background: '#3C1B7A',
+          } }
+        >
+          { shouldAppear && (
+            <button
+              data-testid="btn-next"
+              type="button"
+              onClick={ () => { this.handleClickNext(); } }
+              disabled={ isDisabled }
+            >
+              Next
+            </button>
+          )}
+        </footer>
       </>
     );
   }
