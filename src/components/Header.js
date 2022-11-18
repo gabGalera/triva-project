@@ -48,7 +48,7 @@ class Header extends React.Component {
             fontFamily: 'Epilogue',
             fonStyle: 'normal',
             fontWeight: '400',
-            fontSize: '16px',
+            fontSize: '1rem',
             lineHeight: '150%',
             /* identical to box height, or 24px */
 

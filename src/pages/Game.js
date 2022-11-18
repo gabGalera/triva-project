@@ -16,13 +16,19 @@ class Game extends React.Component {
       isDisabled: false,
       timer: 30000,
       questionsNumber: 0,
+      shouldShuffle: true,
+      trueFalse: [],
+      multiple: [],
     };
   }
 
   componentDidMount() {
     const thousand = 1000;
+    const timeLimit = 30;
     const clock = setInterval(() => {
       if (document.getElementById('clock') === null) {
+        clearInterval(clock);
+      } else if (document.getElementById('clock').innerHTML === timeLimit) {
         clearInterval(clock);
       } else if (document.getElementById('clock').innerHTML > 1) {
         document.getElementById('clock').innerHTML -= 1;
@@ -40,6 +46,7 @@ class Game extends React.Component {
     this.setState((oldState) => ({
       shouldAppear: false,
       clicked: false,
+      shouldShuffle: true,
       questionsNumber: oldState.questionsNumber + 1,
     }));
     document.getElementById('clock').innerHTML = 30;
@@ -91,7 +98,8 @@ class Game extends React.Component {
 
   render() {
     const { questions, index, history } = this.props;
-    const { shouldAppear, isDisabled, timer, clicked } = this.state;
+    const { shouldAppear, isDisabled, timer, clicked, shouldShuffle } = this.state;
+    let { trueFalse, multiple } = this.state;
     let passingTimer = '';
     if (document.getElementById('clock')) {
       passingTimer = document.getElementById('clock').innerHTML;
@@ -107,7 +115,7 @@ class Game extends React.Component {
       return history.push('/');
     }
 
-    const trueFalse = [];
+    trueFalse = [];
     const correct = (
       <button
         type="button"
@@ -129,11 +137,14 @@ class Game extends React.Component {
         onClick={ () => this.setState({ shouldAppear: true, clicked: true }) }
         disabled={ isDisabled }
       >
-        {questions[index].incorrect_answers[0]}
+        {questions[index]
+          .incorrect_answers[0]
+          .replace(/&quot;/g, '"')
+          .replace(/&#039;/g, '"')}
       </button>
     );
     trueFalse.push(correct, incorrect);
-    const multiple = [];
+    multiple = [];
     const incorrectMult = (
       questions[index].incorrect_answers.map((element) => (
         <button
@@ -145,13 +156,20 @@ class Game extends React.Component {
           onClick={ () => this.appearBtn(timerFunc, passingTimer, false) }
           disabled={ isDisabled }
         >
-          {element}
+          {element
+            .replace(/&quot;/g, '"')
+            .replace(/&#039;/g, '\'')}
         </button>
       ))
     );
     multiple.push(correct, incorrectMult);
-    multiple.sort(this.randOrd);
-    trueFalse.sort(this.randOrd);
+    if (shouldShuffle) {
+      multiple.sort(this.randOrd);
+      trueFalse.sort(this.randOrd);
+      this.setState({
+        shouldShuffle: false,
+      });
+    }
 
     return (
       <>
@@ -205,6 +223,7 @@ class Game extends React.Component {
                   textAlign: 'center',
                   justifyContent: 'center',
 
+                  fontSize: '1rem',
                   letterSpacing: '0.12em',
 
                   zIndex: '2',
@@ -231,7 +250,7 @@ class Game extends React.Component {
                   fontFamily: 'Epilogue',
                   fonStyle: 'normal',
                   fontWeight: '400',
-                  fontSize: '16px', // 16 /
+                  fontSize: '1rem', // 16 /
                   lineHeight: '150%',
                   /* or 24px */
 
@@ -244,7 +263,10 @@ class Game extends React.Component {
                 } }
               >
                 <div>
-                  { questions[index].question }
+                  { questions[index].question
+                    .replace(/&quot;/g, '"')
+                    .replace(/&#039;/g, '"')}
+
                 </div>
               </div>
               <div
@@ -258,6 +280,7 @@ class Game extends React.Component {
                   left: '8.9%', // 114 / 1280
                   top: '73.85%',
                   zIndex: '6',
+                  fontSize: '1rem',
                   // background: 'red',
                 } }
               >
@@ -270,12 +293,52 @@ class Game extends React.Component {
               </div>
               { questions[index].type === 'boolean'
                 ? (
-                  <div data-testid="answer-options">
+                  <div
+                    data-testid="answer-options"
+                    style={ {
+                      boxSizing: 'border-box',
+
+                      position: 'absolute',
+                      width: '40.5469%', // 519 / 1280
+                      height: '20.05%', // topFinal - topInicial + heightFinal + 1 = 444 - 361 + 64 + 1 = 148 => 148 / (113 + 625)
+                      left: '51.64%', // 661 / 1280
+                      top: '48.91%', // 361 / (113 + 625)
+
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'space-between',
+
+                      zIndex: '1',
+                      background: 'transparent',
+                    // border: '1px solid #FFFFFF',
+                    // borderRadius: '100px',
+                    } }
+                  >
                     {trueFalse.map((element) => element)}
                   </div>
                 )
                 : (
-                  <div data-testid="answer-options">
+                  <div
+                    data-testid="answer-options"
+                    style={ {
+                      boxSizing: 'border-box',
+
+                      position: 'absolute',
+                      width: '40.5469%', // 519 / 1280
+                      height: '42.95%', // topFinal - topInicial + heightFinal + 1 = 480 - 228 + 64 + 1 = 317 => 317 / (113 + 625)
+                      left: '51.64%', // 661 / 1280
+                      top: '30.89%', // 228 / (113 + 625)
+
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'space-between',
+
+                      zIndex: '1',
+                      background: 'transparent',
+                      // border: '1px solid #FFFFFF',
+                      // borderRadius: '100px',
+                    } }
+                  >
                     {multiple.map((element) => element)}
                   </div>
                 )}
@@ -286,9 +349,9 @@ class Game extends React.Component {
           style={ {
             position: 'absolute',
             width: '100%',
-            height: '26.56%', // 166 / (625)
-            left: '0px',
-            top: '73.4%', // tentativa e erro
+            height: '23.6%', // tentativa e erro
+
+            top: '76.4%', // tentativa e erro
 
             background: '#3C1B7A',
           } }
@@ -299,8 +362,33 @@ class Game extends React.Component {
               type="button"
               onClick={ () => { this.handleClickNext(); } }
               disabled={ isDisabled }
+              style={ {
+                position: 'absolute',
+                width: '40.5468%', // 519 / 1280
+                height: '27.108%', // 45 / 166
+                left: '51.64%', // 661 / 1280
+                top: '8.14558%', // 1 - ((575 - 45) / 577)
+
+                background: '#2FC18C',
+                boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+                borderRadius: '5px',
+
+                fontFamily: 'Epilogue',
+                fontStyle: 'normal',
+                fontWeight: '700',
+                fontSize: '16px',
+                lineHeight: '150%',
+
+                // display: 'flex',
+                // alignItems: 'center',
+                // textAlign: 'center',
+                // letterSpacing: '0.12em',
+
+                color: '#FFFFFF',
+
+              } }
             >
-              Next
+              NEXT
             </button>
           )}
         </footer>
