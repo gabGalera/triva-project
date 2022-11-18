@@ -32,8 +32,8 @@ class Game extends React.Component {
         clearInterval(clock);
       } else if (document.getElementById('clock').innerHTML > 1) {
         document.getElementById('clock').innerHTML -= 1;
-      } else if (document.getElementById('clock').innerHTML === 1) {
-        document.getElementById('clock').innerHTML = 'Acabou o tempo.';
+      } else if (document.getElementById('clock').innerHTML === '1') {
+        document.getElementById('clockParent').innerHTML = 'Acabou o tempo.';
         clearInterval(clock);
       }
     }, thousand);
@@ -140,7 +140,8 @@ class Game extends React.Component {
         {questions[index]
           .incorrect_answers[0]
           .replace(/&quot;/g, '"')
-          .replace(/&#039;/g, '"')}
+          .replace(/&#039;/g, '"')
+          .replace(/&amp;/g, '&')}
       </button>
     );
     trueFalse.push(correct, incorrect);
@@ -158,7 +159,8 @@ class Game extends React.Component {
         >
           {element
             .replace(/&quot;/g, '"')
-            .replace(/&#039;/g, '\'')}
+            .replace(/&#039;/g, '\'')
+            .replace(/&amp;/g, '&')}
         </button>
       ))
     );
@@ -265,11 +267,13 @@ class Game extends React.Component {
                 <div>
                   { questions[index].question
                     .replace(/&quot;/g, '"')
-                    .replace(/&#039;/g, '"')}
+                    .replace(/&#039;/g, '"')
+                    .replace(/&amp;/g, '&')}
 
                 </div>
               </div>
               <div
+                id="clockParent"
                 style={ {
                   display: 'flex',
                   alignItems: 'center',
