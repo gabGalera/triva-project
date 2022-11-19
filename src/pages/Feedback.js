@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
+import { zeroScore } from '../redux/actions';
 
 class Feedback extends React.Component {
   render() {
@@ -16,41 +17,61 @@ class Feedback extends React.Component {
       return (
         <>
           <Header />
-          <h1 data-testid="feedback-total-score">{score}</h1>
-          <h1 data-testid="feedback-total-question">
-            {
-              assertions
-            }
+          <div
+            style={ {
+              position: 'absolute',
+              zIndex: '5',
+            } }
+          >
+            <h1 data-testid="feedback-total-score">
+              {
+                score
+              }
 
-          </h1>
-          <h1 data-testid="feedback-text">Could be better...</h1>
-          {/* <button
+            </h1>
+            <h1 data-testid="feedback-total-question">
+              {
+                assertions
+              }
+
+            </h1>
+            <h1 data-testid="feedback-text">Could be better...</h1>
+            {/* <button
             data-testid="btn-play-again"
             type="button"
             onClick={ history.push('/') }
           >
-            Play Again
+          Play Again
           </button> */}
-          <Link
-            to="/ranking"
-          >
-            <button
-              data-testid="btn-ranking"
-              type="button"
+            <Link
+              to="/ranking"
             >
-              Ranking
-            </button>
-          </Link>
-          <Link
-            to="/"
-          >
-            <button
-              data-testid="btn-play-again"
-              type="button"
+              <button
+                data-testid="btn-ranking"
+                type="button"
+                onClick={ () => {
+                  const { dispatch } = this.props;
+                  dispatch(zeroScore());
+                } }
+              >
+                Ranking
+              </button>
+            </Link>
+            <Link
+              to="/"
             >
-              Play Again
-            </button>
-          </Link>
+              <button
+                data-testid="btn-play-again"
+                type="button"
+                onClick={ () => {
+                  const { dispatch } = this.props;
+                  dispatch(zeroScore());
+                } }
+              >
+                Play Again
+              </button>
+            </Link>
+          </div>
         </>
       );
     }
@@ -59,41 +80,62 @@ class Feedback extends React.Component {
       return (
         <>
           <Header />
-          <h1 data-testid="feedback-total-score">{score}</h1>
-          <h1 data-testid="feedback-total-question">
-            {
-              assertions
-            }
+          <div
+            style={ {
+              position: 'absolute',
+              // top: '17.546%',
+              zIndex: '5',
+            } }
+          >
+            <h1 data-testid="feedback-total-score">
+              {
+                score
+              }
 
-          </h1>
-          <h1 data-testid="feedback-text">Well Done!</h1>
-          {/* <button
+            </h1>
+            <h1 data-testid="feedback-total-question">
+              {
+                assertions
+              }
+
+            </h1>
+            <h1 data-testid="feedback-text">Well Done!</h1>
+            {/* <button
             data-testid="btn-play-again"
             type="button"
             onClick={ history.push('/') }
           >
             Play Again
           </button> */}
-          <Link
-            to="/ranking"
-          >
-            <button
-              data-testid="btn-ranking"
-              type="button"
+            <Link
+              to="/ranking"
             >
-              Ranking
-            </button>
-          </Link>
-          <Link
-            to="/"
-          >
-            <button
-              data-testid="btn-play-again"
-              type="button"
+              <button
+                data-testid="btn-ranking"
+                type="button"
+                onClick={ () => {
+                  const { dispatch } = this.props;
+                  dispatch(zeroScore());
+                } }
+              >
+                Ranking
+              </button>
+            </Link>
+            <Link
+              to="/"
             >
-              Play Again
-            </button>
-          </Link>
+              <button
+                data-testid="btn-play-again"
+                type="button"
+                onClick={ () => {
+                  const { dispatch } = this.props;
+                  dispatch(zeroScore());
+                } }
+              >
+                Play Again
+              </button>
+            </Link>
+          </div>
         </>
       );
     }
@@ -109,6 +151,7 @@ Feedback.propTypes = {
   // history: PropTypes.shape({
   //   push: PropTypes.func.isRequired,
   // }).isRequired,
+  dispatch: PropTypes.func.isRequired,
   score: PropTypes.number.isRequired,
   assertions: PropTypes.number.isRequired,
 };

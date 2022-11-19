@@ -1,24 +1,20 @@
-/* eslint-disable max-lines */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
-import { changeScore, newQuestion, zeroScore } from '../redux/actions';
-import trivia from '../images/trivia.png';
-import background from '../images/background.png';
+import { changeScore, newQuestion } from '../redux/actions';
+import { LogoTriviaGameDiv, BackgroundGameDiv, QuestionCategoryDiv,
+  CorrectButton, QuestionTextDiv, parentClockDiv } from './GameStyle';
 
 class Game extends React.Component {
   constructor() {
     super();
     this.state = {
-      clicked: false,
       shouldAppear: false,
       isDisabled: false,
-      timer: 30000,
       questionsNumber: 0,
       shouldShuffle: true,
-      trueFalse: [],
-      multiple: [],
+      shuffledQuestions: [],
     };
   }
 
@@ -33,6 +29,13 @@ class Game extends React.Component {
       } else if (document.getElementById('clock').innerHTML > 1) {
         document.getElementById('clock').innerHTML -= 1;
       } else if (document.getElementById('clock').innerHTML === '1') {
+        document.getElementsByName('correct').forEach((correctAnswer) => {
+          correctAnswer.disabled = true;
+        });
+        document.getElementsByName('incorrect').forEach((wrong) => {
+          wrong.disabled = true;
+        });
+        // document.getElementsByName('next')[0].disabled = true;
         document.getElementById('clockParent').innerHTML = 'Acabou o tempo.';
         clearInterval(clock);
       }
@@ -43,10 +46,14 @@ class Game extends React.Component {
     const { dispatch, history, score } = this.props;
     const { questionsNumber } = this.state;
     const maxQuestion = 4;
+    document.getElementsByName('correct').forEach((correctAnswer) => {
+      correctAnswer.className = 'notClickedAnswer';
+    });
+    document.getElementsByName('incorrect').forEach((wrong) => {
+      wrong.className = 'notClickedAnswer';
+    });
     this.setState((oldState) => ({
       shouldAppear: false,
-      clicked: false,
-      shouldShuffle: true,
       questionsNumber: oldState.questionsNumber + 1,
     }));
     document.getElementById('clock').innerHTML = 30;
@@ -58,7 +65,6 @@ class Game extends React.Component {
         picture: rankingObj[rankingObj.length - 1].picture,
         score };
       const sortedRanking = rankingObj.sort((a, b) => b.score - a.score);
-      dispatch(zeroScore());
       localStorage.setItem('ranking', JSON.stringify(sortedRanking));
       return history.push('/feedback');
     }
@@ -84,10 +90,16 @@ class Game extends React.Component {
     }
   };
 
-  appearBtn = (entryTimer, time, answer) => {
-    clearTimeout(entryTimer);
+  appearBtn = (time, answer) => {
+    document.getElementsByName('correct').forEach((correctAnswer) => {
+      correctAnswer.className = 'correctAnswerClicked';
+    });
+    document.getElementsByName('incorrect').forEach((wrong) => {
+      wrong.className = 'wrongAnswerClicked';
+    });
+    // clearTimeout(entryTimer);
     this.checkScore(time, answer);
-    this.setState({ shouldAppear: true, clicked: true });
+    this.setState({ shouldAppear: true });
   };
 
   // funçao tirada do site https://leocaseiro.com.br/shuffle-do-php-no-javascript/ para randomização
@@ -98,171 +110,99 @@ class Game extends React.Component {
 
   render() {
     const { questions, index, history } = this.props;
-    const { shouldAppear, isDisabled, timer, clicked, shouldShuffle } = this.state;
-    let { trueFalse, multiple } = this.state;
+    const { shouldAppear,
+      isDisabled,
+      shouldShuffle } = this.state;
+    let { shuffledQuestions } = this.state;
     let passingTimer = '';
     if (document.getElementById('clock')) {
       passingTimer = document.getElementById('clock').innerHTML;
     }
-    const timerFunc = setTimeout(() => {
-      this.setState({
-        isDisabled: true,
-      });
-    }, timer);
 
     if (questions.length === 0) {
       localStorage.clear();
       return history.push('/');
     }
 
-    trueFalse = [];
-    const correct = (
-      <button
-        type="button"
-        data-testid="correct-answer"
-        className={ clicked ? 'correctAnswerClicked' : 'notClickedAnswer' }
-        //      onClick={ this.handleClick }
-        onClick={ () => this.appearBtn(timerFunc, passingTimer, true) }
-        disabled={ isDisabled }
-      >
-        {questions[index].correct_answer}
-      </button>
-    );
-    const incorrect = (
-      <button
-        type="button"
-        data-testid={ `wrong-answer-${index}` }
-        className={ clicked ? 'wrongAnswerClicked' : 'notClickedAnswer' }
-        //      onClick={ this.handleClick }
-        onClick={ () => this.setState({ shouldAppear: true, clicked: true }) }
-        disabled={ isDisabled }
-      >
-        {questions[index]
-          .incorrect_answers[0]
-          .replace(/&quot;/g, '"')
-          .replace(/&#039;/g, '"')
-          .replace(/&amp;/g, '&')}
-      </button>
-    );
-    trueFalse.push(correct, incorrect);
-    multiple = [];
-    const incorrectMult = (
-      questions[index].incorrect_answers.map((element) => (
-        <button
-          type="button"
-          key={ element }
-          data-testid={ `wrong-answer-${index}` }
-          className={ clicked ? 'wrongAnswerClicked' : 'notClickedAnswer' }
-          //        onClick={ this.handleClick }
-          onClick={ () => this.appearBtn(timerFunc, passingTimer, false) }
-          disabled={ isDisabled }
-        >
-          {element
-            .replace(/&quot;/g, '"')
-            .replace(/&#039;/g, '\'')
-            .replace(/&amp;/g, '&')}
-        </button>
-      ))
-    );
-    multiple.push(correct, incorrectMult);
     if (shouldShuffle) {
-      multiple.sort(this.randOrd);
-      trueFalse.sort(this.randOrd);
+      shuffledQuestions = questions.map((question) => {
+        const multiple = [];
+        const trueFalse = [];
+        const correct = (
+          <CorrectButton
+            type="button"
+            data-testid="correct-answer"
+            name="correct"
+            className="notClickedAnswer"
+            onClick={ () => this.appearBtn(passingTimer, true) }
+            disabled={ isDisabled }
+          >
+            {question.correct_answer}
+          </CorrectButton>
+        );
+        const incorrect = (
+          <CorrectButton
+            type="button"
+            name="incorrect"
+            data-testid={ `wrong-answer-${index}` }
+            className="notClickedAnswer"
+            onClick={ () => this.appearBtn(passingTimer, false) }
+            disabled={ isDisabled }
+
+          >
+            {question
+              .incorrect_answers[0]
+              .replace(/&quot;/g, '"')
+              .replace(/&#039;/g, '\'')
+              .replace(/&amp;/g, '&')}
+          </CorrectButton>
+        );
+        trueFalse.push(correct, incorrect);
+        const incorrectMult = (
+          question.incorrect_answers.map((entry) => (
+            <CorrectButton
+              type="button"
+              name="incorrect"
+              key={ entry }
+              data-testid={ `wrong-answer-${index}` }
+              className="notClickedAnswer"
+              onClick={ () => this.appearBtn(passingTimer, false) }
+              disabled={ isDisabled }
+            >
+              {entry
+                .replace(/&quot;/g, '"')
+                .replace(/&#039;/g, '\'')
+                .replace(/&amp;/g, '&')}
+            </CorrectButton>
+          ))
+        );
+        multiple.push(correct, incorrectMult);
+        if (question.type === 'boolean') {
+          return trueFalse.sort(this.randOrd);
+        }
+        return multiple.sort(this.randOrd);
+      });
       this.setState({
         shouldShuffle: false,
+        shuffledQuestions,
       });
     }
 
     return (
       <>
         <Header />
-        <div
-          style={ {
-            position: 'absolute',
-            width: '15.3976%', // 197.09 / 1280
-            height: '26.8536%', // 198.18 / (113 + 625)
-            left: '16.7968%', // 215 / 1280
-            top: '3.523%', // 26 / (113 + 625)
-            backgroundImage: `url(${trivia})`,
-            backgroundSize: '100% 100%',
-            // backgroundRepeat: 'no-repeat',
-
-            zIndex: '1',
-          } }
-        />
-        <div
-          style={ {
-            position: 'absolute',
-            width: '100%',
-            height: '84.688%', // 625 / (113 + 625)
-            left: '0px',
-            top: '11.517%', // 85 / (113 + 625)
-
-            backgroundImage: `url(${background})`,
-            backgroundSize: 'contain',
-            // color: whi,
-            // zIndex: 1,
-          } }
-        >
+        <LogoTriviaGameDiv />
+        <BackgroundGameDiv>
           {questions
           && (
             <>
-              <div
+              <QuestionCategoryDiv
                 data-testid="question-category"
-                style={ {
-                  position: 'absolute',
-                  width: '32.2656%', // 413 / 1280
-                  height: '6.0975%', // 45 / (113 + 625)
-                  left: '8.9%', // 114 / 1280
-                  top: '37.2629%', // 275 / (113 + 625)
-
-                  background: '#F9BA18',
-                  boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
-                  borderRadius: '100px',
-
-                  display: 'flex',
-                  alignItems: 'center',
-                  textAlign: 'center',
-                  justifyContent: 'center',
-
-                  fontSize: '1rem',
-                  letterSpacing: '0.12em',
-
-                  zIndex: '2',
-                  color: '#FFFFFF',
-                } }
               >
-                { questions[index].category.toUpperCase() }
-              </div>
-              <div
+                { questions[index].category }
+              </QuestionCategoryDiv>
+              <QuestionTextDiv
                 data-testid="question-text"
-                style={ {
-                  position: 'absolute',
-                  width: '34.2968%', // 439 / 1280
-                  height: '38.75%', // 286 / (113 + 625)
-                  left: '7.89%', // 101 / 1280
-                  top: '40.65%', // 300 / (113 + 625)
-
-                  display: 'flex',
-                  alignItems: 'center',
-                  textAlign: 'center',
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-
-                  fontFamily: 'Epilogue',
-                  fonStyle: 'normal',
-                  fontWeight: '400',
-                  fontSize: '1rem', // 16 /
-                  lineHeight: '150%',
-                  /* or 24px */
-
-                  color: '#000000',
-
-                  background: '#FFFFFF',
-                  zIndex: '1',
-                  boxShadow: '1px 4px 13px 2px rgba(0, 0, 0, 0.2)',
-                  borderRadius: '10px',
-                } }
               >
                 <div>
                   { questions[index].question
@@ -271,22 +211,9 @@ class Game extends React.Component {
                     .replace(/&amp;/g, '&')}
 
                 </div>
-              </div>
-              <div
+              </QuestionTextDiv>
+              <parentClockDiv
                 id="clockParent"
-                style={ {
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  position: 'absolute',
-                  width: '32.26%', // 413 / 1280
-                  height: '5.15%', // 38 / (113 + 625)
-                  left: '8.9%', // 114 / 1280
-                  top: '73.85%',
-                  zIndex: '6',
-                  fontSize: '1rem',
-                  // background: 'red',
-                } }
               >
                 Tempo:
                 {' '}
@@ -294,7 +221,7 @@ class Game extends React.Component {
                   {30}
                 </div>
                 s
-              </div>
+              </parentClockDiv>
               { questions[index].type === 'boolean'
                 ? (
                   <div
@@ -318,7 +245,7 @@ class Game extends React.Component {
                     // borderRadius: '100px',
                     } }
                   >
-                    {trueFalse.map((element) => element)}
+                    {shuffledQuestions[index].map((entry) => entry)}
                   </div>
                 )
                 : (
@@ -343,12 +270,12 @@ class Game extends React.Component {
                       // borderRadius: '100px',
                     } }
                   >
-                    {multiple.map((element) => element)}
+                    {shuffledQuestions[index].map((entry) => entry)}
                   </div>
                 )}
             </>
           )}
-        </div>
+        </BackgroundGameDiv>
         <footer
           style={ {
             position: 'absolute',
@@ -363,6 +290,7 @@ class Game extends React.Component {
           { shouldAppear && (
             <button
               data-testid="btn-next"
+              name="next"
               type="button"
               onClick={ () => { this.handleClickNext(); } }
               disabled={ isDisabled }
@@ -403,6 +331,7 @@ class Game extends React.Component {
 
 const mapStateToProps = (state) => ({
   questions: state.player.questions,
+  assertions: state.player.assertions,
   token: state.player.token,
   index: state.player.index,
   score: state.player.score,

@@ -48,6 +48,7 @@ const player = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       score: 0,
+      assertions: 0,
     };
   default:
     return {

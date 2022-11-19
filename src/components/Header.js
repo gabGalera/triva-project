@@ -82,8 +82,8 @@ class Header extends React.Component {
             top: '43.36%', // 49 / 113
           } }
         >
-          Pontos:
-          {' '}
+          {/* Pontos:
+          {' '} */}
           { score }
         </div>
       </div>

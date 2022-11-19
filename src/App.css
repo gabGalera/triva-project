@@ -63,13 +63,49 @@ body {
 }
 
 .correctAnswerClicked {
+  align-items: center;
+  background: white;
   border: 3px solid rgb(6, 240, 15);
+  border-radius: 100px;
+  display: flex;
+  font-family: Epilogue , sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  height: 64px;
+  letter-spacing: 0.12em;
+  line-height: 150%;
+  width: 100%;
 }
 
 .wrongAnswerClicked {
+  align-items: center;
+  background: white;
   border: 3px solid red;
+  border-radius: 100px;
+  display: flex;
+  font-family: Epilogue , sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  height: 64px;
+  letter-spacing: 0.12em;
+  line-height: 150%;
+  width: 100%;
 }
 
 .notClickedAnswer {
+  align-items: center;
+  background: white;
   border: 1px solid black;
+  border-radius: 100px;
+  display: flex;
+  font-family: Epilogue , sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  height: 64px;
+  letter-spacing: 0.12em;
+  line-height: 150%;
+  width: 100%;
 }
