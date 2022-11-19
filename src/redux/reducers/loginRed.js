@@ -20,6 +20,7 @@ const player = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       token: action.payload.token,
+      name: action.name,
     };
   case QUESTION_API:
     return {

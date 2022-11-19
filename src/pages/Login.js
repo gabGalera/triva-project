@@ -40,7 +40,7 @@ class Login extends React.Component {
   handleClick = async () => {
     const { email, name } = this.state;
     const { dispatch, history } = this.props;
-    await dispatch(tokenAPI());
+    await dispatch(tokenAPI(name));
     const { token } = this.props;
     localStorage.setItem('token', token);
 

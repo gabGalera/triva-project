@@ -4,7 +4,10 @@ import { connect } from 'react-redux';
 import Header from '../components/Header';
 import { changeScore, newQuestion } from '../redux/actions';
 import { LogoTriviaGameDiv, BackgroundGameDiv, QuestionCategoryDiv,
-  CorrectButton, QuestionTextDiv, ParentClockDiv } from './GameStyle';
+  CorrectButton, QuestionTextDiv, ParentClockDiv,
+  AnswerOptionsTrueFalseDiv,
+  AnswerOptionsMultipleDiv,
+  GameFooter, NextButton, timer } from './StyledComponents/GameStyle';
 
 class Game extends React.Component {
   constructor() {
@@ -19,27 +22,7 @@ class Game extends React.Component {
   }
 
   componentDidMount() {
-    const thousand = 1000;
-    const timeLimit = 30;
-    const clock = setInterval(() => {
-      if (document.getElementById('clock') === null) {
-        clearInterval(clock);
-      } else if (document.getElementById('clock').innerHTML === timeLimit) {
-        clearInterval(clock);
-      } else if (document.getElementById('clock').innerHTML > 1) {
-        document.getElementById('clock').innerHTML -= 1;
-      } else if (document.getElementById('clock').innerHTML === '1') {
-        document.getElementsByName('correct').forEach((correctAnswer) => {
-          correctAnswer.disabled = true;
-        });
-        document.getElementsByName('incorrect').forEach((wrong) => {
-          wrong.disabled = true;
-        });
-        // document.getElementsByName('next')[0].disabled = true;
-        document.getElementById('clockParent').innerHTML = 'Acabou o tempo.';
-        clearInterval(clock);
-      }
-    }, thousand);
+    timer();
   }
 
   handleClickNext = () => {
@@ -76,7 +59,6 @@ class Game extends React.Component {
     const difficult = questions[index].difficulty;
     const tenNum = 10;
     const three = 3;
-
     if (answer === false) {
       return dispatch(changeScore(0));
     }
@@ -97,7 +79,6 @@ class Game extends React.Component {
     document.getElementsByName('incorrect').forEach((wrong) => {
       wrong.className = 'wrongAnswerClicked';
     });
-    // clearTimeout(entryTimer);
     this.checkScore(time, answer);
     this.setState({ shouldAppear: true });
   };
@@ -118,12 +99,10 @@ class Game extends React.Component {
     if (document.getElementById('clock')) {
       passingTimer = document.getElementById('clock').innerHTML;
     }
-
     if (questions.length === 0) {
       localStorage.clear();
       return history.push('/');
     }
-
     if (shouldShuffle) {
       shuffledQuestions = questions.map((question) => {
         const multiple = [];
@@ -148,13 +127,8 @@ class Game extends React.Component {
             className="notClickedAnswer"
             onClick={ () => this.appearBtn(passingTimer, false) }
             disabled={ isDisabled }
-
           >
-            {question
-              .incorrect_answers[0]
-              .replace(/&quot;/g, '"')
-              .replace(/&#039;/g, '\'')
-              .replace(/&amp;/g, '&')}
+            {question.incorrect_answers[0].replace(/&quot;/g, '"').replace(/&#039;/g, '\'').replace(/&amp;/g, '&')}
           </CorrectButton>
         );
         trueFalse.push(correct, incorrect);
@@ -169,10 +143,7 @@ class Game extends React.Component {
               onClick={ () => this.appearBtn(passingTimer, false) }
               disabled={ isDisabled }
             >
-              {entry
-                .replace(/&quot;/g, '"')
-                .replace(/&#039;/g, '\'')
-                .replace(/&amp;/g, '&')}
+              {entry.replace(/&quot;/g, '"').replace(/&#039;/g, '\'').replace(/&amp;/g, '&')}
             </CorrectButton>
           ))
         );
@@ -187,7 +158,6 @@ class Game extends React.Component {
         shuffledQuestions,
       });
     }
-
     return (
       <>
         <Header />
@@ -205,11 +175,7 @@ class Game extends React.Component {
                 data-testid="question-text"
               >
                 <div>
-                  { questions[index].question
-                    .replace(/&quot;/g, '"')
-                    .replace(/&#039;/g, '"')
-                    .replace(/&amp;/g, '&')}
-
+                  { questions[index].question.replace(/&quot;/g, '"').replace(/&#039;/g, '\'').replace(/&amp;/g, '&')}
                 </div>
               </QuestionTextDiv>
               <ParentClockDiv
@@ -224,111 +190,39 @@ class Game extends React.Component {
               </ParentClockDiv>
               { questions[index].type === 'boolean'
                 ? (
-                  <div
+                  <AnswerOptionsTrueFalseDiv
                     data-testid="answer-options"
-                    style={ {
-                      boxSizing: 'border-box',
-
-                      position: 'absolute',
-                      width: '40.5469%', // 519 / 1280
-                      height: '20.05%', // topFinal - topInicial + heightFinal + 1 = 444 - 361 + 64 + 1 = 148 => 148 / (113 + 625)
-                      left: '51.64%', // 661 / 1280
-                      top: '48.91%', // 361 / (113 + 625)
-
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'space-between',
-
-                      zIndex: '1',
-                      background: 'transparent',
-                    // border: '1px solid #FFFFFF',
-                    // borderRadius: '100px',
-                    } }
                   >
                     {shuffledQuestions[index].map((entry) => entry)}
-                  </div>
+                  </AnswerOptionsTrueFalseDiv>
                 )
                 : (
-                  <div
+                  <AnswerOptionsMultipleDiv
                     data-testid="answer-options"
-                    style={ {
-                      boxSizing: 'border-box',
-
-                      position: 'absolute',
-                      width: '40.5469%', // 519 / 1280
-                      height: '42.95%', // topFinal - topInicial + heightFinal + 1 = 480 - 228 + 64 + 1 = 317 => 317 / (113 + 625)
-                      left: '51.64%', // 661 / 1280
-                      top: '30.89%', // 228 / (113 + 625)
-
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'space-between',
-
-                      zIndex: '1',
-                      background: 'transparent',
-                      // border: '1px solid #FFFFFF',
-                      // borderRadius: '100px',
-                    } }
                   >
                     {shuffledQuestions[index].map((entry) => entry)}
-                  </div>
+                  </AnswerOptionsMultipleDiv>
                 )}
             </>
           )}
         </BackgroundGameDiv>
-        <footer
-          style={ {
-            position: 'absolute',
-            width: '100%',
-            height: '23.6%', // tentativa e erro
-
-            top: '76.4%', // tentativa e erro
-
-            background: '#3C1B7A',
-          } }
-        >
+        <GameFooter>
           { shouldAppear && (
-            <button
+            <NextButton
               data-testid="btn-next"
               name="next"
               type="button"
               onClick={ () => { this.handleClickNext(); } }
               disabled={ isDisabled }
-              style={ {
-                position: 'absolute',
-                width: '40.5468%', // 519 / 1280
-                height: '27.108%', // 45 / 166
-                left: '51.64%', // 661 / 1280
-                top: '8.14558%', // 1 - ((575 - 45) / 577)
-
-                background: '#2FC18C',
-                boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
-                borderRadius: '5px',
-
-                fontFamily: 'Epilogue',
-                fontStyle: 'normal',
-                fontWeight: '700',
-                fontSize: '16px',
-                lineHeight: '150%',
-
-                // display: 'flex',
-                // alignItems: 'center',
-                // textAlign: 'center',
-                // letterSpacing: '0.12em',
-
-                color: '#FFFFFF',
-
-              } }
             >
               NEXT
-            </button>
+            </NextButton>
           )}
-        </footer>
+        </GameFooter>
       </>
     );
   }
 }
-
 const mapStateToProps = (state) => ({
   questions: state.player.questions,
   assertions: state.player.assertions,
@@ -336,7 +230,6 @@ const mapStateToProps = (state) => ({
   index: state.player.index,
   score: state.player.score,
 });
-
 Game.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
@@ -353,5 +246,4 @@ Game.propTypes = {
   index: PropTypes.number.isRequired,
   score: PropTypes.number.isRequired,
 };
-
 export default connect(mapStateToProps)(Game);

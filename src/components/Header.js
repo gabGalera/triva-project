@@ -6,8 +6,7 @@ import star from '../images/star.png';
 class Header extends React.Component {
   render() {
     const ranking = JSON.parse(localStorage.getItem('ranking'));
-    const { score } = this.props;
-    const { name } = ranking[ranking.length - 1];
+    const { score, name } = this.props;
     const url = ranking[ranking.length - 1].picture;
     return (
       <div
@@ -92,7 +91,7 @@ class Header extends React.Component {
 }
 
 Header.propTypes = {
-  // name: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
   score: PropTypes.string.isRequired,
 };
 

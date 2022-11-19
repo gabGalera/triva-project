@@ -4,49 +4,46 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import { zeroScore } from '../redux/actions';
+import { BackgroundDiv, FeedbackFooter, GravatarImg, InfosDiv,
+  LogoTriviaFeedbackDiv,
+  PlayAgain,
+  RankingButton } from './StyledComponents/FeedbackStyled';
 
 class Feedback extends React.Component {
   render() {
-    // const ranking = JSON.parse(localStorage.getItem('ranking'));
-    const { assertions, score,
-      // history,
-    } = this.props;
+    const ranking = JSON.parse(localStorage.getItem('ranking'));
+    const { assertions, score, name } = this.props;
     const testScore = 3;
 
     if (assertions < testScore) {
       return (
         <>
-          <Header />
-          <div
-            style={ {
-              position: 'absolute',
-              zIndex: '5',
-            } }
-          >
-            <h1 data-testid="feedback-total-score">
-              {
-                score
-              }
+          <BackgroundDiv>
+            <Header />
+            <LogoTriviaFeedbackDiv />
+            <GravatarImg
+              src={ ranking.find((entry) => entry.name === name).picture }
+              alt={ name }
+            />
+            <InfosDiv>
+              <h1 data-testid="feedback-total-score">
+                {
+                  score
+                }
 
-            </h1>
-            <h1 data-testid="feedback-total-question">
-              {
-                assertions
-              }
+              </h1>
+              <h1 data-testid="feedback-total-question">
+                {
+                  assertions
+                }
 
-            </h1>
-            <h1 data-testid="feedback-text">Could be better...</h1>
-            {/* <button
-            data-testid="btn-play-again"
-            type="button"
-            onClick={ history.push('/') }
-          >
-          Play Again
-          </button> */}
+              </h1>
+              <h1 data-testid="feedback-text">Could be better...</h1>
+            </InfosDiv>
             <Link
               to="/ranking"
             >
-              <button
+              <RankingButton
                 data-testid="btn-ranking"
                 type="button"
                 onClick={ () => {
@@ -55,12 +52,12 @@ class Feedback extends React.Component {
                 } }
               >
                 Ranking
-              </button>
+              </RankingButton>
             </Link>
             <Link
               to="/"
             >
-              <button
+              <PlayAgain
                 data-testid="btn-play-again"
                 type="button"
                 onClick={ () => {
@@ -69,9 +66,10 @@ class Feedback extends React.Component {
                 } }
               >
                 Play Again
-              </button>
+              </PlayAgain>
             </Link>
-          </div>
+          </BackgroundDiv>
+          <FeedbackFooter />
         </>
       );
     }
@@ -79,38 +77,32 @@ class Feedback extends React.Component {
     if (assertions >= testScore) {
       return (
         <>
-          <Header />
-          <div
-            style={ {
-              position: 'absolute',
-              // top: '17.546%',
-              zIndex: '5',
-            } }
-          >
-            <h1 data-testid="feedback-total-score">
-              {
-                score
-              }
+          <BackgroundDiv>
+            <Header />
+            <LogoTriviaFeedbackDiv />
+            <GravatarImg
+              src={ ranking.find((entry) => entry.name === name).picture }
+              alt={ name }
+            />
+            <InfosDiv>
+              <h1 data-testid="feedback-total-score">
+                {
+                  score
+                }
 
-            </h1>
-            <h1 data-testid="feedback-total-question">
-              {
-                assertions
-              }
+              </h1>
+              <h1 data-testid="feedback-total-question">
+                {
+                  assertions
+                }
 
-            </h1>
-            <h1 data-testid="feedback-text">Well Done!</h1>
-            {/* <button
-            data-testid="btn-play-again"
-            type="button"
-            onClick={ history.push('/') }
-          >
-            Play Again
-          </button> */}
+              </h1>
+              <h1 data-testid="feedback-text">Well Done!</h1>
+            </InfosDiv>
             <Link
               to="/ranking"
             >
-              <button
+              <RankingButton
                 data-testid="btn-ranking"
                 type="button"
                 onClick={ () => {
@@ -119,12 +111,12 @@ class Feedback extends React.Component {
                 } }
               >
                 Ranking
-              </button>
+              </RankingButton>
             </Link>
             <Link
               to="/"
             >
-              <button
+              <PlayAgain
                 data-testid="btn-play-again"
                 type="button"
                 onClick={ () => {
@@ -133,9 +125,10 @@ class Feedback extends React.Component {
                 } }
               >
                 Play Again
-              </button>
+              </PlayAgain>
             </Link>
-          </div>
+          </BackgroundDiv>
+          <FeedbackFooter />
         </>
       );
     }
@@ -145,12 +138,14 @@ class Feedback extends React.Component {
 const mapStateToProps = (state) => ({
   score: state.player.score,
   assertions: state.player.assertions,
+  name: state.player.name,
 });
 
 Feedback.propTypes = {
   // history: PropTypes.shape({
   //   push: PropTypes.func.isRequired,
   // }).isRequired,
+  name: PropTypes.string.isRequired,
   dispatch: PropTypes.func.isRequired,
   score: PropTypes.number.isRequired,
   assertions: PropTypes.number.isRequired,
