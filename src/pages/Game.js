@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Header from '../components/Header';
 import { changeScore, newQuestion } from '../redux/actions';
 import { LogoTriviaGameDiv, BackgroundGameDiv, QuestionCategoryDiv,
-  CorrectButton, QuestionTextDiv, parentClockDiv } from './GameStyle';
+  CorrectButton, QuestionTextDiv, ParentClockDiv } from './GameStyle';
 
 class Game extends React.Component {
   constructor() {
@@ -212,7 +212,7 @@ class Game extends React.Component {
 
                 </div>
               </QuestionTextDiv>
-              <parentClockDiv
+              <ParentClockDiv
                 id="clockParent"
               >
                 Tempo:
@@ -221,7 +221,7 @@ class Game extends React.Component {
                   {30}
                 </div>
                 s
-              </parentClockDiv>
+              </ParentClockDiv>
               { questions[index].type === 'boolean'
                 ? (
                   <div

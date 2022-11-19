@@ -98,7 +98,7 @@ export const QuestionTextDiv = styled.div`
 border-radius: 10px;
 `;
 
-export const parentClockDiv = styled.div`
+export const ParentClockDiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
