@@ -8,6 +8,7 @@ export const BackgroundDiv = styled.div`
   height: 71.1845%; // 625 / (625 + 253)
 
   background: url(${background});
+  background-position: 50% -200%;
 `;
 
 export const InfosDiv = styled.div`
