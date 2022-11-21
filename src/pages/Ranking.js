@@ -15,11 +15,12 @@ class Ranking extends React.Component {
     // const reverseSortedRanking = sortedRanking.reverse();
     const whiteBoardHeight = 67.4;
     const liHeight = 9.22;
+    const halfMargin = 8;
     return (
       <div
         style={ {
           position: 'absolute',
-          height: `${100 + liHeight * [ranking.length - 1]}%`,
+          height: `${100 + (liHeight + halfMargin) * [ranking.length - 1]}%`,
           width: '100%',
           background: `url(${background})`,
           backgroundSize: 'contain',
