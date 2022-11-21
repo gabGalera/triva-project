@@ -116,3 +116,67 @@ export const FeedbackFooter = styled.footer`
 
   z-index: -1;
 `;
+
+export const FeedbackMessage = styled.p`
+  position: absolute;
+  width: 50.51%; // tentativa e erro tudo
+  height: auto; // 
+  left: 26.89%; // 
+  top: 30.89%; 
+
+  font-family: 'Epilogue';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 150%;
+  /* or 45px */
+
+  display: flex;
+  align-items: center;
+  text-align: center;
+  text-transform: uppercase;
+
+  color: #EA5D5D;
+`;
+
+export const AssertionsMessage = styled.p`
+  position: absolute;
+  width: 50.51%; // tentativa e erro tudo
+  height: auto; // 
+  left: 33.89%; // 
+  top: 50.89%;
+
+  font-family: 'Epilogue';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 150%;
+  /* or 24px */
+
+  display: flex;
+  align-items: center;
+  text-align: center;
+
+  color: #B5B5B5;
+`;
+
+export const ScoreMessage = styled.p`
+  position: absolute;
+  width: 50.51%; // tentativa e erro tudo
+  height: auto; // 
+  left: 35.5%; // 
+  top: 64.89%;
+
+  font-family: 'Epilogue';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 150%;
+  /* or 24px */
+
+  display: flex;
+  align-items: center;
+  text-align: center;
+
+  color: #B5B5B5;
+`;

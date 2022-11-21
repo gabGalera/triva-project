@@ -4,10 +4,12 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import { zeroScore } from '../redux/actions';
-import { BackgroundDiv, FeedbackFooter, GravatarImg, InfosDiv,
+import { AssertionsMessage, BackgroundDiv, FeedbackFooter,
+  FeedbackMessage, GravatarImg, InfosDiv,
   LogoTriviaFeedbackDiv,
   PlayAgain,
-  RankingButton } from './StyledComponents/FeedbackStyled';
+  RankingButton,
+  ScoreMessage } from './StyledComponents/FeedbackStyled';
 
 class Feedback extends React.Component {
   render() {
@@ -26,19 +28,33 @@ class Feedback extends React.Component {
               alt={ name }
             />
             <InfosDiv>
-              <h1 data-testid="feedback-total-score">
-                {
-                  score
-                }
-
-              </h1>
-              <h1 data-testid="feedback-total-question">
-                {
-                  assertions
-                }
-
-              </h1>
-              <h1 data-testid="feedback-text">Could be better...</h1>
+              <FeedbackMessage
+                data-testid="feedback-text"
+              >
+                Could be better...
+              </FeedbackMessage>
+              <AssertionsMessage>
+                Você acertou
+                {' '}
+                <span style={ { padding: '4px' } } data-testid="feedback-total-question">
+                  {
+                    assertions
+                  }
+                </span>
+                {' '}
+                questões!
+              </AssertionsMessage>
+              <ScoreMessage>
+                Um total de
+                {' '}
+                <span style={ { padding: '4px' } } data-testid="feedback-total-score">
+                  {
+                    score
+                  }
+                </span>
+                {' '}
+                pontos
+              </ScoreMessage>
             </InfosDiv>
             <Link
               to="/ranking"
@@ -85,19 +101,29 @@ class Feedback extends React.Component {
               alt={ name }
             />
             <InfosDiv>
-              <h1 data-testid="feedback-total-score">
-                {
-                  score
-                }
-
-              </h1>
-              <h1 data-testid="feedback-total-question">
-                {
-                  assertions
-                }
-
-              </h1>
-              <h1 data-testid="feedback-text">Well Done!</h1>
+              <FeedbackMessage data-testid="feedback-text">Well Done!</FeedbackMessage>
+              <AssertionsMessage>
+                Você acertou
+                {' '}
+                <span style={ { padding: '4px' } } data-testid="feedback-total-question">
+                  {
+                    assertions
+                  }
+                </span>
+                {' '}
+                questões!
+              </AssertionsMessage>
+              <ScoreMessage>
+                Um total de
+                {' '}
+                <span style={ { padding: '4px' } } data-testid="feedback-total-score">
+                  {
+                    score
+                  }
+                </span>
+                {' '}
+                pontos
+              </ScoreMessage>
             </InfosDiv>
             <Link
               to="/ranking"

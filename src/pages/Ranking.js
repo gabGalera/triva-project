@@ -33,7 +33,7 @@ class Ranking extends React.Component {
                 src={ player.picture }
                 alt={ `${player.name} profile` }
               />
-              <span data-testid={ `player-name-${index}` }>
+              <span data-testid={ `player-name-${index}` } style={ { padding: '4x' } }>
                 { player.name }
               </span>
               <span data-testid={ `player-score-${index}` }>
