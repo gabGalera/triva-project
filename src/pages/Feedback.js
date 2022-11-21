@@ -101,7 +101,13 @@ class Feedback extends React.Component {
               alt={ name }
             />
             <InfosDiv>
-              <FeedbackMessage data-testid="feedback-text">Well Done!</FeedbackMessage>
+              <FeedbackMessage
+                data-testid="feedback-text"
+                style={ { left: '34.89%' } }
+              >
+                Well Done!
+
+              </FeedbackMessage>
               <AssertionsMessage>
                 Você acertou
                 {' '}
