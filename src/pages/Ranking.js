@@ -34,7 +34,7 @@ class Ranking extends React.Component {
             width: '13.89%', // 177.79 / 1280
             height: 'auto',
             left: '43.06%',
-            top: '10%',
+            top: '5%',
 
             zIndex: '1',
           } }
