@@ -64,11 +64,11 @@ class Game extends React.Component {
     }
     switch (difficult) {
     case 'easy':
-      return dispatch(changeScore((tenNum + ((time) * 1))));
+      return dispatch(changeScore((tenNum + ((Number(time)) * 1))));
     case 'medium':
-      return dispatch(changeScore((tenNum + ((time) * 2))));
+      return dispatch(changeScore((tenNum + ((Number(time)) * 2))));
     default:
-      return dispatch(changeScore((tenNum + ((time) * three))));
+      return dispatch(changeScore((tenNum + (Number((time)) * three))));
     }
   };
 
@@ -79,7 +79,7 @@ class Game extends React.Component {
     document.getElementsByName('incorrect').forEach((wrong) => {
       wrong.className = 'wrongAnswerClicked';
     });
-    this.checkScore(time, answer);
+    this.checkScore(document.getElementById('clock').innerHTML, answer);
     this.setState({ shouldAppear: true });
   };
 
@@ -95,10 +95,7 @@ class Game extends React.Component {
       isDisabled,
       shouldShuffle } = this.state;
     let { shuffledQuestions } = this.state;
-    let passingTimer = '';
-    if (document.getElementById('clock')) {
-      passingTimer = document.getElementById('clock').innerHTML;
-    }
+    const passingTimer = '30';
     if (questions.length === 0) {
       localStorage.clear();
       return history.push('/');
