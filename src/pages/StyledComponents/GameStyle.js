@@ -176,19 +176,19 @@ export const AnswerOptionsMultipleDiv = styled.div`
 export const GameFooter = styled.footer`
   position: absolute;
   width: 100%;
-  height: 23.6%; // tentativa e erro
+  height: 23.6%; 
 
-  top: 76.4%; // tentativa e erro
-
+  top: 76.4%; 
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
   background: #3C1B7A;
 `;
 
 export const NextButton = styled.button`
-  position: absolute;
-  width: 40.5468%; // 519 / 1280
-  height: 27.108%; // 45 / 166
-  left: 51.64%; // 661 / 1280
-  top: 8.14558%; // 1 - ((575 - 45) / 577)
+  
+  width: 38%; // 519 / 1280
+  height: 20%; // 45 / 166
 
   background: #2FC18C;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -201,27 +201,13 @@ export const NextButton = styled.button`
   line-height: 150%;
 
   color: #FFFFFF;
-`;
 
-export const timer = () => {
-  const thousand = 1000;
-  const timeLimit = 30;
-  const clock = setInterval(() => {
-    if (document.getElementById('clock') === null) {
-      clearInterval(clock);
-    } else if (document.getElementById('clock').innerHTML === timeLimit) {
-      clearInterval(clock);
-    } else if (document.getElementById('clock').innerHTML > 1) {
-      document.getElementById('clock').innerHTML -= 1;
-    } else if (document.getElementById('clock').innerHTML === '1') {
-      document.getElementsByName('correct').forEach((correctAnswer) => {
-        correctAnswer.disabled = true;
-      });
-      document.getElementsByName('incorrect').forEach((wrong) => {
-        wrong.disabled = true;
-      });
-      document.getElementById('clockParent').innerHTML = 'Acabou o tempo.';
-      clearInterval(clock);
-    }
-  }, thousand);
-};
+  margin-right: 11%;
+  margin-bottom: 8%;
+  z-index: 6;
+
+  @media(max-width: 1024px) {
+    margin-bottom: 0.5%;
+    margin-right: 0%;
+  }
+`;

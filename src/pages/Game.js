@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
 import { changeScore, newQuestion } from '../redux/actions';
+import timer from '../helpers/gameHelpers';
 import { LogoTriviaGameDiv, BackgroundGameDiv, QuestionCategoryDiv,
   CorrectButton, QuestionTextDiv, ParentClockDiv,
   AnswerOptionsTrueFalseDiv,
   AnswerOptionsMultipleDiv,
-  GameFooter, NextButton, timer, QuestionDiv } from './StyledComponents/GameStyle';
+  GameFooter, NextButton, QuestionDiv } from './StyledComponents/GameStyle';
 
 class Game extends React.Component {
   constructor() {
@@ -72,7 +73,7 @@ class Game extends React.Component {
     }
   };
 
-  appearBtn = (time, answer) => {
+  appearBtn = (answer) => {
     document.getElementsByName('correct').forEach((correctAnswer) => {
       correctAnswer.className = 'correctAnswerClicked';
     });
@@ -95,7 +96,6 @@ class Game extends React.Component {
       isDisabled,
       shouldShuffle } = this.state;
     let { shuffledQuestions } = this.state;
-    const passingTimer = '30';
     if (questions.length === 0) {
       localStorage.clear();
       return history.push('/');
@@ -110,7 +110,7 @@ class Game extends React.Component {
             data-testid="correct-answer"
             name="correct"
             className="notClickedAnswer"
-            onClick={ () => this.appearBtn(passingTimer, true) }
+            onClick={ () => this.appearBtn(true) }
             disabled={ isDisabled }
           >
             {question.correct_answer}
@@ -122,7 +122,7 @@ class Game extends React.Component {
             name="incorrect"
             data-testid={ `wrong-answer-${index}` }
             className="notClickedAnswer"
-            onClick={ () => this.appearBtn(passingTimer, false) }
+            onClick={ () => this.appearBtn(false) }
             disabled={ isDisabled }
           >
             {question.incorrect_answers[0].replace(/&quot;/g, '"').replace(/&#039;/g, '\'').replace(/&amp;/g, '&')}
@@ -137,7 +137,7 @@ class Game extends React.Component {
               key={ entry }
               data-testid={ `wrong-answer-${index}` }
               className="notClickedAnswer"
-              onClick={ () => this.appearBtn(passingTimer, false) }
+              onClick={ () => this.appearBtn(false) }
               disabled={ isDisabled }
             >
               {entry.replace(/&quot;/g, '"').replace(/&#039;/g, '\'').replace(/&amp;/g, '&')}
@@ -159,8 +159,6 @@ class Game extends React.Component {
       <div
         style={ {
           display: 'flex',
-          flexDirection: 'row',
-
         } }
       >
         <Header />
