@@ -19,43 +19,49 @@ class Feedback extends React.Component {
 
     if (assertions < testScore) {
       return (
-        <>
-          <BackgroundDiv>
-            <Header />
-            <LogoTriviaFeedbackDiv />
-            <GravatarImg
-              src={ ranking.find((entry) => entry.name === name).picture }
-              alt={ name }
-            />
-            <InfosDiv>
-              <FeedbackMessage
-                data-testid="feedback-text"
-              >
-                Could be better...
-              </FeedbackMessage>
-              <AssertionsMessage>
-                Você acertou
-                {' '}
-                <span style={ { padding: '4px' } } data-testid="feedback-total-question">
-                  {
-                    assertions
-                  }
-                </span>
-                {' '}
-                questões!
-              </AssertionsMessage>
-              <ScoreMessage>
-                Um total de
-                {' '}
-                <span style={ { padding: '4px' } } data-testid="feedback-total-score">
-                  {
-                    score
-                  }
-                </span>
-                {' '}
-                pontos
-              </ScoreMessage>
-            </InfosDiv>
+        <BackgroundDiv>
+          <Header />
+          <GravatarImg
+            src={ ranking.find((entry) => entry.name === name).picture }
+            alt={ name }
+          />
+          <InfosDiv>
+            <FeedbackMessage
+              data-testid="feedback-text"
+            >
+              Could be better...
+            </FeedbackMessage>
+            <AssertionsMessage>
+              Você acertou
+              {' '}
+              <span style={ { padding: '4px' } } data-testid="feedback-total-question">
+                {
+                  assertions
+                }
+              </span>
+              {' '}
+              questões!
+            </AssertionsMessage>
+            <ScoreMessage>
+              Um total de
+              {' '}
+              <span style={ { padding: '4px' } } data-testid="feedback-total-score">
+                {
+                  score
+                }
+              </span>
+              {' '}
+              pontos
+            </ScoreMessage>
+          </InfosDiv>
+          <div
+            style={ {
+              display: 'flex',
+              marginBottom: '-7%',
+              zIndex: '99',
+              margin: '2%',
+            } }
+          >
             <Link
               to="/ranking"
             >
@@ -84,84 +90,93 @@ class Feedback extends React.Component {
                 Play Again
               </PlayAgain>
             </Link>
-          </BackgroundDiv>
+          </div>
           <FeedbackFooter />
-        </>
+        </BackgroundDiv>
       );
     }
 
     if (assertions >= testScore) {
       return (
-        <>
-          <BackgroundDiv>
-            <Header />
-            <LogoTriviaFeedbackDiv />
-            <GravatarImg
-              src={ ranking.find((entry) => entry.name === name).picture }
-              alt={ name }
-            />
-            <InfosDiv>
-              <FeedbackMessage
-                data-testid="feedback-text"
-                style={ { left: '34.89%' } }
-              >
-                Well Done!
+        <BackgroundDiv>
+          <Header />
+          <LogoTriviaFeedbackDiv />
+          <GravatarImg
+            src={ ranking.find((entry) => entry.name === name).picture }
+            alt={ name }
+          />
+          <InfosDiv>
+            <FeedbackMessage
+              data-testid="feedback-text"
+              style={ { left: '34.89%' } }
+            >
+              Well Done!
 
-              </FeedbackMessage>
-              <AssertionsMessage>
-                Você acertou
-                {' '}
-                <span style={ { padding: '4px' } } data-testid="feedback-total-question">
-                  {
-                    assertions
-                  }
-                </span>
-                {' '}
-                questões!
-              </AssertionsMessage>
-              <ScoreMessage>
-                Um total de
-                {' '}
-                <span style={ { padding: '4px' } } data-testid="feedback-total-score">
-                  {
-                    score
-                  }
-                </span>
-                {' '}
-                pontos
-              </ScoreMessage>
-            </InfosDiv>
-            <Link
-              to="/ranking"
+            </FeedbackMessage>
+            <AssertionsMessage>
+              Você acertou
+              {' '}
+              <span style={ { padding: '4px' } } data-testid="feedback-total-question">
+                {
+                  assertions
+                }
+              </span>
+              {' '}
+              questões!
+            </AssertionsMessage>
+            <ScoreMessage>
+              Um total de
+              {' '}
+              <span style={ { padding: '4px' } } data-testid="feedback-total-score">
+                {
+                  score
+                }
+              </span>
+              {' '}
+              pontos
+            </ScoreMessage>
+          </InfosDiv>
+
+          <Link
+            to="/ranking"
+            style={ {
+              display: 'flex',
+              flexDirection: 'row',
+              width: '100%',
+            } }
+          >
+            <RankingButton
+              data-testid="btn-ranking"
+              type="button"
+              onClick={ () => {
+                const { dispatch } = this.props;
+                dispatch(zeroScore());
+              } }
             >
-              <RankingButton
-                data-testid="btn-ranking"
-                type="button"
-                onClick={ () => {
-                  const { dispatch } = this.props;
-                  dispatch(zeroScore());
-                } }
-              >
-                Ranking
-              </RankingButton>
-            </Link>
-            <Link
-              to="/"
+              Ranking
+            </RankingButton>
+          </Link>
+          <Link
+            to="/"
+            style={ {
+              display: 'flex',
+              flexDirection: 'row',
+              width: '100%',
+            } }
+          >
+            <PlayAgain
+              data-testid="btn-play-again"
+              type="button"
+              onClick={ () => {
+                const { dispatch } = this.props;
+                dispatch(zeroScore());
+              } }
             >
-              <PlayAgain
-                data-testid="btn-play-again"
-                type="button"
-                onClick={ () => {
-                  const { dispatch } = this.props;
-                  dispatch(zeroScore());
-                } }
-              >
-                Play Again
-              </PlayAgain>
-            </Link>
-          </BackgroundDiv>
+              Play Again
+            </PlayAgain>
+          </Link>
           <FeedbackFooter />
-        </>
+        </BackgroundDiv>
       );
     }
   }

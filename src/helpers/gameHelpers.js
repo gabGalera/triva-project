@@ -1,4 +1,4 @@
-const timer = () => {
+export const timer = () => {
   const thousand = 1000;
   const timeLimit = 30;
   const clock = setInterval(() => {
@@ -21,4 +21,8 @@ const timer = () => {
   }, thousand);
 };
 
-export default timer;
+// funçao tirada do site https://leocaseiro.com.br/shuffle-do-php-no-javascript/ para randomização
+export const randOrd = () => {
+  const myNum = 0.5;
+  return (Math.round(Math.random()) - myNum);
+};

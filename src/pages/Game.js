@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
 import { changeScore, newQuestion } from '../redux/actions';
-import timer from '../helpers/gameHelpers';
+import { timer, randOrd } from '../helpers/gameHelpers';
 import { LogoTriviaGameDiv, BackgroundGameDiv, QuestionCategoryDiv,
   CorrectButton, QuestionTextDiv, ParentClockDiv,
   AnswerOptionsTrueFalseDiv,
@@ -84,12 +84,6 @@ class Game extends React.Component {
     this.setState({ shouldAppear: true });
   };
 
-  // funçao tirada do site https://leocaseiro.com.br/shuffle-do-php-no-javascript/ para randomização
-  randOrd() {
-    const myNum = 0.5;
-    return (Math.round(Math.random()) - myNum);
-  }
-
   render() {
     const { questions, index, history } = this.props;
     const { shouldAppear,
@@ -146,9 +140,9 @@ class Game extends React.Component {
         );
         multiple.push(correct, incorrectMult);
         if (question.type === 'boolean') {
-          return trueFalse.sort(this.randOrd);
+          return trueFalse.sort(randOrd);
         }
-        return multiple.sort(this.randOrd);
+        return multiple.sort(randOrd);
       });
       this.setState({
         shouldShuffle: false,
