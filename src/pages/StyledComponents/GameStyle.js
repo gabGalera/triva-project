@@ -3,17 +3,17 @@ import trivia from '../../images/trivia.png';
 import background from '../../images/background.png';
 
 export const LogoTriviaGameDiv = styled.div`
-    // position: absolute;
     width: 60.3976%; 
     height: 100.8536%; 
-    left: 16.7968%; 
-    top: 3.523%; 
     background-image: url(${trivia});
     background-size: 100% 100%;
 
-
     z-index: 1;
-`;
+    @media(max-width: 1024px) {
+      width: 0%; 
+      margin-bottom: 0%;
+    }
+  `;
 
 export const BackgroundGameDiv = styled.div`
   position: absolute;
@@ -22,11 +22,31 @@ export const BackgroundGameDiv = styled.div`
   left: 0px;
   top: 11.517%; 
   display: flex;
+
   align-items: center;
   justify-content: space-evenly;
 
   background-image: url(${background});
   backgroundSize: contain;
+
+  @media(max-width: 1024px) {
+    flex-direction: column;
+  }
+`;
+
+export const QuestionDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 30%;
+  height: 75%;
+  margin-bottom: 15%;
+
+  @media(max-width: 1024px) {
+    width: 90.5469%;
+    height: 50%; 
+    margin-bottom: 2%;
+  }
 `;
 
 export const QuestionCategoryDiv = styled.div`
@@ -48,6 +68,13 @@ export const QuestionCategoryDiv = styled.div`
 
   z-index: 2;
   color: #FFFFFF;
+
+  @media(max-width: 1024px) {
+    width: 80.5469%;
+    height: 50%; 
+    // margin-bottom: 5%;
+  }
+
 `;
 
 export const CorrectButton = styled.button`
@@ -67,7 +94,7 @@ export const CorrectButton = styled.button`
   display: flex;
   align-items: center;
   letter-spacing: 0.12em;
-}
+
 `;
 
 export const QuestionTextDiv = styled.div`
@@ -78,7 +105,7 @@ export const QuestionTextDiv = styled.div`
   align-items: center;
   text-align: center;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-evenly;
 
   font-family: Epilogue;
   font-style: normal;
@@ -86,20 +113,23 @@ export const QuestionTextDiv = styled.div`
   font-size: 1rem; // 16 /
   line-height: 150%;
 
-
   color: #000000;
 
   background: #FFFFFF;
   z-index: 1;
   box-shadow: 1px 4px 13px 2px rgba(0, 0, 0, 0.2);
-border-radius: 10px;
+  border-radius: 10px;
+  @media(max-width: 1024px) {
+    width: 90.5469%;
+    height: 200%; 
+  }
 `;
 
 export const ParentClockDiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 5%;
+  padding: 10%;
   width: 32.26%; // 413 / 1280
   height: 5.15%; // 38 / (113 + 625)
 
@@ -110,12 +140,8 @@ export const ParentClockDiv = styled.div`
 export const AnswerOptionsTrueFalseDiv = styled.div`
   box-sizing: border-box;
 
-  // position: absolute;
-  width: 40.5469%; // 519 / 1280
-  height: 20.05%; // topFinal - topInicial + heightFinal + 1
-  // 444 - 361 + 64 + 1 = 148 => 148 / (113 + 625)
-  left: 51.64%; // 661 / 1280
-  top: 48.91%; // 361 / (113 + 625)
+  width: 40.5469%; 
+  height: 20.05%; 
 
   display: flex;
   flex-direction: column;
@@ -123,17 +149,17 @@ export const AnswerOptionsTrueFalseDiv = styled.div`
 
   z-index: 1;
   background: transparent;
+
+  @media(max-width: 1024px) {
+    width: 90.5469%; 
+  }
 `;
 
 export const AnswerOptionsMultipleDiv = styled.div`
   box-sizing: border-box;
 
-  // position: absolute;
-  width: 40.5469%; // 519 / 1280
-  height: 42.95%; // topFinal - topInicial + heightFinal + 1 
-  // 480 - 228 + 64 + 1 = 317 => 317 / (113 + 625)
-  left: 51.64%; // 661 / 1280
-  top: 30.89%; // 228 / (113 + 625)
+  width: 40.5469%; 
+  height: 42.95%; 
 
   display: flex;
   flex-direction: column;
@@ -141,6 +167,10 @@ export const AnswerOptionsMultipleDiv = styled.div`
 
   z-index: 1;
   background: transparent;
+
+  @media(max-width: 1024px) {
+    width: 90.5469%; 
+  }
 `;
 
 export const GameFooter = styled.footer`

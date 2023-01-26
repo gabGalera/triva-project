@@ -7,7 +7,7 @@ import { LogoTriviaGameDiv, BackgroundGameDiv, QuestionCategoryDiv,
   CorrectButton, QuestionTextDiv, ParentClockDiv,
   AnswerOptionsTrueFalseDiv,
   AnswerOptionsMultipleDiv,
-  GameFooter, NextButton, timer } from './StyledComponents/GameStyle';
+  GameFooter, NextButton, timer, QuestionDiv } from './StyledComponents/GameStyle';
 
 class Game extends React.Component {
   constructor() {
@@ -168,16 +168,7 @@ class Game extends React.Component {
           {questions
           && (
             <>
-              <div
-                style={ {
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  width: '30%',
-                  height: '75%',
-                  marginBottom: '15%',
-                } }
-              >
+              <QuestionDiv>
                 <LogoTriviaGameDiv />
                 <QuestionCategoryDiv
                   data-testid="question-category"
@@ -201,7 +192,7 @@ class Game extends React.Component {
                     s
                   </ParentClockDiv>
                 </QuestionTextDiv>
-              </div>
+              </QuestionDiv>
               { questions[index].type === 'boolean'
                 ? (
                   <AnswerOptionsTrueFalseDiv
