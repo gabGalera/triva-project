@@ -3,9 +3,9 @@ import trivia from '../../images/trivia.png';
 import background from '../../images/background.png';
 
 export const LogoTriviaGameDiv = styled.div`
-    position: absolute;
-    width: 15.3976%; 
-    height: 26.8536%; 
+    // position: absolute;
+    width: 60.3976%; 
+    height: 100.8536%; 
     left: 16.7968%; 
     top: 3.523%; 
     background-image: url(${trivia});
@@ -18,21 +18,22 @@ export const LogoTriviaGameDiv = styled.div`
 export const BackgroundGameDiv = styled.div`
   position: absolute;
   width: 100%;
-  height: 84.688%; // 625 / (113 + 625)
+  height: 84.688%; 
   left: 0px;
-  top: 11.517%; // 85 / (113 + 625)
+  top: 11.517%; 
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
 
   background-image: url(${background});
   backgroundSize: contain;
 `;
 
 export const QuestionCategoryDiv = styled.div`
-  position: absolute;
-  width: 32.2656%; // 413 / 1280
-  height: 6.0975%; // 45 / (113 + 625)
-  left: 8.9%; // 114 / 1280
-  top: 37.2629%; // 275 / (113 + 625)
+  width: 80.2656%; 
+  height: 20.0975%; 
 
+  margin-bottom: -2%;
   background: #F9BA18;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 100px;
@@ -70,17 +71,14 @@ export const CorrectButton = styled.button`
 `;
 
 export const QuestionTextDiv = styled.div`
-  position: absolute;
-  width: 34.2968%; // 439 / 1280
-  height: 38.75%; // 286 / (113 + 625)
-  left: 7.89%; // 101 / 1280
-  top: 40.65%; // 300 / (113 + 625)
+  width: 100%; // 439 / 1280
+  height: 100%; // 286 / (113 + 625)
 
   display: flex;
   align-items: center;
   text-align: center;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
 
   font-family: Epilogue;
   font-style: normal;
@@ -101,11 +99,10 @@ export const ParentClockDiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  position: absolute;
+  padding: 5%;
   width: 32.26%; // 413 / 1280
   height: 5.15%; // 38 / (113 + 625)
-  left: 8.9%; // 114 / 1280
-  top: 73.85%;
+
   z-index: 6;
   font-size: 1rem;
 `;
@@ -113,7 +110,7 @@ export const ParentClockDiv = styled.div`
 export const AnswerOptionsTrueFalseDiv = styled.div`
   box-sizing: border-box;
 
-  position: absolute;
+  // position: absolute;
   width: 40.5469%; // 519 / 1280
   height: 20.05%; // topFinal - topInicial + heightFinal + 1
   // 444 - 361 + 64 + 1 = 148 => 148 / (113 + 625)
@@ -131,7 +128,7 @@ export const AnswerOptionsTrueFalseDiv = styled.div`
 export const AnswerOptionsMultipleDiv = styled.div`
   box-sizing: border-box;
 
-  position: absolute;
+  // position: absolute;
   width: 40.5469%; // 519 / 1280
   height: 42.95%; // topFinal - topInicial + heightFinal + 1 
   // 480 - 228 + 64 + 1 = 317 => 317 / (113 + 625)

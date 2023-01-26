@@ -156,35 +156,52 @@ class Game extends React.Component {
       });
     }
     return (
-      <>
+      <div
+        style={ {
+          display: 'flex',
+          flexDirection: 'row',
+
+        } }
+      >
         <Header />
-        <LogoTriviaGameDiv />
         <BackgroundGameDiv>
           {questions
           && (
             <>
-              <QuestionCategoryDiv
-                data-testid="question-category"
+              <div
+                style={ {
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  width: '30%',
+                  height: '75%',
+                  marginBottom: '15%',
+                } }
               >
-                { questions[index].category }
-              </QuestionCategoryDiv>
-              <QuestionTextDiv
-                data-testid="question-text"
-              >
-                <div>
-                  { questions[index].question.replace(/&quot;/g, '"').replace(/&#039;/g, '\'').replace(/&amp;/g, '&')}
-                </div>
-              </QuestionTextDiv>
-              <ParentClockDiv
-                id="clockParent"
-              >
-                Tempo:
-                {' '}
-                <div id="clock">
-                  {30}
-                </div>
-                s
-              </ParentClockDiv>
+                <LogoTriviaGameDiv />
+                <QuestionCategoryDiv
+                  data-testid="question-category"
+                >
+                  { questions[index].category }
+                </QuestionCategoryDiv>
+                <QuestionTextDiv
+                  data-testid="question-text"
+                >
+                  <div style={ { padding: '5%' } }>
+                    { questions[index].question.replace(/&quot;/g, '"').replace(/&#039;/g, '\'').replace(/&amp;/g, '&')}
+                  </div>
+                  <ParentClockDiv
+                    id="clockParent"
+                  >
+                    Tempo:
+                    {' '}
+                    <div id="clock">
+                      {30}
+                    </div>
+                    s
+                  </ParentClockDiv>
+                </QuestionTextDiv>
+              </div>
               { questions[index].type === 'boolean'
                 ? (
                   <AnswerOptionsTrueFalseDiv
@@ -216,7 +233,7 @@ class Game extends React.Component {
             </NextButton>
           )}
         </GameFooter>
-      </>
+      </div>
     );
   }
 }
