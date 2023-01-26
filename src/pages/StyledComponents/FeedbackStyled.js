@@ -25,10 +25,10 @@ export const InfosDiv = styled.div`
 
 export const LogoTriviaFeedbackDiv = styled.div`
     position: absolute;
-    width: 10.6672%; // 136.54 / 1280
-    height: 33.966%; // tentativa e erro
-    left: 44.675%; // 571.84 / 1280
-    top: 10.5836%; // // tentativa e erro
+    width: 10.6672%; 
+    height: 33.966%; 
+    left: 44.675%; 
+    top: 10.5836%; 
     background-image: url(${trivia});
     background-size: 100% 100%;
 

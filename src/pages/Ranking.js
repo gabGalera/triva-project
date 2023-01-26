@@ -85,7 +85,6 @@ class Ranking extends React.Component {
               position: 'absolute',
               width: '67.89%',
               left: '12.27%', // 447 / 1280
-              // height: `${9.22 + 9.22 * [ranking.length - 1]}%`,
               top: '30%',
               listStyle: 'none',
             } }
