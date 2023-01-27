@@ -66,6 +66,17 @@ export const ButtonPlay = styled.button`
   width: 90%;
   height: 16.9172%;
 
+  font-family: 'Epilogue';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 150%;
+
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+
+  color: #FFFFFF;
+
   background: #2FC18C;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
