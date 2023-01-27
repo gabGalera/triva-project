@@ -8,7 +8,9 @@ import { AssertionsMessage, BackgroundDiv, FeedbackFooter,
   FeedbackMessage, GravatarImg, InfosDiv,
   PlayAgain,
   RankingButton,
-  ScoreMessage, DivButtons } from './StyledComponents/FeedbackStyled';
+  ScoreMessage,
+  LogoTriviaFeedbackDiv,
+  DivButtons } from './StyledComponents/FeedbackStyled';
 
 class Feedback extends React.Component {
   render() {
@@ -20,6 +22,7 @@ class Feedback extends React.Component {
       return (
         <BackgroundDiv>
           <Header />
+          <LogoTriviaFeedbackDiv />
           <GravatarImg
             src={ ranking.find((entry) => entry.name === name).picture }
             alt={ name }

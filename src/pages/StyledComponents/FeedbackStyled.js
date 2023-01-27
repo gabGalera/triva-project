@@ -38,15 +38,20 @@ export const InfosDiv = styled.div`
 `;
 
 export const LogoTriviaFeedbackDiv = styled.div`
-    width: 5.6672%; 
-    height: 10%; 
+    width: 15%; 
+    height: 30%; 
 
-    margin-top: 5%;
+    margin: 2% 0;
 
     background-image: url(${trivia});
     background-size: 100% 100%;
     
     z-index: 1;
+
+    @media(max-width: 1024px) {
+      width: 35%; 
+      height: 20%; 
+    }
 `;
 
 export const GravatarImg = styled.img`
