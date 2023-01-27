@@ -6,7 +6,6 @@ import Header from '../components/Header';
 import { zeroScore } from '../redux/actions';
 import { AssertionsMessage, BackgroundDiv, FeedbackFooter,
   FeedbackMessage, GravatarImg, InfosDiv,
-  LogoTriviaFeedbackDiv,
   PlayAgain,
   RankingButton,
   ScoreMessage, DivButtons } from './StyledComponents/FeedbackStyled';
