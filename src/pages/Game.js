@@ -8,7 +8,8 @@ import { LogoTriviaGameDiv, BackgroundGameDiv, QuestionCategoryDiv,
   CorrectButton, QuestionTextDiv, ParentClockDiv,
   AnswerOptionsTrueFalseDiv,
   AnswerOptionsMultipleDiv,
-  GameFooter, NextButton, QuestionDiv } from './StyledComponents/GameStyle';
+  GameFooter, NextButton,
+  QuestionDiv } from './StyledComponents/GameStyle';
 
 class Game extends React.Component {
   constructor() {

@@ -10,8 +10,7 @@ export const LogoTriviaGameDiv = styled.div`
 
     z-index: 1;
     @media(max-width: 1024px) {
-      width: 0%; 
-      margin-bottom: 0%;
+      height: 0%;
     }
   `;
 
@@ -210,4 +209,21 @@ export const NextButton = styled.button`
     margin-bottom: 0.5%;
     margin-right: 0%;
   }
+`;
+
+export const LogoTriviaFeedbackDiv = styled.div`
+    width: 15%; 
+    height: 30%; 
+
+    margin: 2% 0;
+
+    background-image: url(${trivia});
+    background-size: 100% 100%;
+    
+    z-index: 1;
+
+    @media(max-width: 1024px) {
+      width: 35%; 
+      height: 20%; 
+    }
 `;

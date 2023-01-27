@@ -22,7 +22,7 @@ export const MainDiv = styled.div`
 export const ProfilePic = styled.img`
   width: 5%;
   height: auto;
-  margin-right: 5%;
+  margin-right: 2.5%;
   border-radius: 50%;
 
   @media(max-width: 1024px) {
