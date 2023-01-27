@@ -4,7 +4,7 @@ import trivia from '../../images/trivia.png';
 export const BackgroundDiv = styled.div`
   position: absolute;
   width: 100%;
-  height: 100%; // 625 / (625 + 253)
+  height: 100%; 
 
   display: flex;
   flex-direction: column;
@@ -14,19 +14,24 @@ export const BackgroundDiv = styled.div`
 `;
 
 export const InfosDiv = styled.div`
-  width: 50%; // 438 / 1280
-  height: 40%; // 278 / (625)
+  width: 50%; 
+  height: 40%; 
 
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 10px;
   align-items: center;
+
+  padding: 10px;
   background: #FFFFFF;
   box-shadow: 1px 4px 13px 2px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
 
   z-index: 1;
+
+  @media(max-width: 1024px) {
+    width: 85%
+  }
 `;
 
 export const LogoTriviaFeedbackDiv = styled.div`
@@ -37,21 +42,27 @@ export const LogoTriviaFeedbackDiv = styled.div`
 
     background-image: url(${trivia});
     background-size: 100% 100%;
-
+    
     z-index: 1;
 `;
 
 export const GravatarImg = styled.img`
   box-sizing: border-box;
 
-  width: 10%; // 213 / 1280
-  height: 20%; // 213 / 625
-  margin-bottom: -1%;
+  width: 10%; 
+  height: 20%; 
+  margin-bottom: -3%;
   border: 4px solid #EA5D5D;
   filter: drop-shadow(0px 0px 9px #EA5D5D);
   border-radius: 100%;
 
   z-index: 2;
+
+  @media(max-width: 1024px) {
+    width: 40%;
+    height: 25%; 
+    margin-bottom: -5%;
+  }
 `;
 
 export const RankingButton = styled.button`
@@ -104,15 +115,12 @@ export const FeedbackFooter = styled.footer`
   top: 70%;
   background: #3C1B7A;
 
-  // z-index: -1;
 `;
 
 export const FeedbackMessage = styled.p`
-  width: 70.51%; // tentativa e erro tudo
-  height: auto; // 
+  width: 100%; 
+  height: auto; 
   
-  margin-left: 18%;
-
   font-family: 'Epilogue';
   font-style: normal;
   font-weight: 700;
@@ -123,16 +131,19 @@ export const FeedbackMessage = styled.p`
 
   display: flex;
   align-items: center;
-  text-align: center;
+  justify-content: center;
 
   color: #EA5D5D;
+
+  @media(max-width: 1024px){
+    font-size: 22px
+  }
 `;
 
 export const AssertionsMessage = styled.p`
-  width: 50.51%; // tentativa e erro tudo
-  height: auto; // 
+  width: 100%; 
+  height: auto;
 
-  margin-left: 15%;
   font-family: 'Epilogue';
   font-style: normal;
   font-weight: 700;
@@ -142,26 +153,39 @@ export const AssertionsMessage = styled.p`
 
   display: flex;
   align-items: center;
-  text-align: center;
+  justify-content: center;
+
+  color: #B5B5B5;
+
+`;
+
+export const ScoreMessage = styled.p`
+  width: 100%; 
+  height: auto; 
+
+  font-family: 'Epilogue';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 150%;
+  /* or 24px */
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   color: #B5B5B5;
 `;
 
-export const ScoreMessage = styled.p`
-  width: 50.51%; // tentativa e erro tudo
-  height: auto; // 
-
-  font-family: 'Epilogue';
-  font-style: normal;
-  font-weight: 700;
-  font-size: 20px;
-  line-height: 150%;
-  /* or 24px */
-
-  margin-left: 20%;
+export const DivButtons = styled.div`
+  width: 40%;
   display: flex;
-  align-items: center;
-  text-align: center;
+  justify-content: space-between;
 
-  color: #B5B5B5;
+  z-index: 99;
+  margin: 2%;
+
+  @media(max-width: 1024px) {
+    width: 80%;
+  }
 `;

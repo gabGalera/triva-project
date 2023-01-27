@@ -9,7 +9,7 @@ import { AssertionsMessage, BackgroundDiv, FeedbackFooter,
   LogoTriviaFeedbackDiv,
   PlayAgain,
   RankingButton,
-  ScoreMessage } from './StyledComponents/FeedbackStyled';
+  ScoreMessage, DivButtons } from './StyledComponents/FeedbackStyled';
 
 class Feedback extends React.Component {
   render() {
@@ -54,16 +54,12 @@ class Feedback extends React.Component {
               pontos
             </ScoreMessage>
           </InfosDiv>
-          <div
-            style={ {
-              display: 'flex',
-              marginBottom: '-7%',
-              zIndex: '99',
-              margin: '2%',
-            } }
-          >
+          <DivButtons>
             <Link
               to="/ranking"
+              style={ {
+                width: '45%',
+              } }
             >
               <RankingButton
                 data-testid="btn-ranking"
@@ -78,6 +74,9 @@ class Feedback extends React.Component {
             </Link>
             <Link
               to="/"
+              style={ {
+                width: '45%',
+              } }
             >
               <PlayAgain
                 data-testid="btn-play-again"
@@ -90,7 +89,7 @@ class Feedback extends React.Component {
                 Play Again
               </PlayAgain>
             </Link>
-          </div>
+          </DivButtons>
           <FeedbackFooter />
         </BackgroundDiv>
       );
@@ -100,7 +99,6 @@ class Feedback extends React.Component {
       return (
         <BackgroundDiv>
           <Header />
-          <LogoTriviaFeedbackDiv />
           <GravatarImg
             src={ ranking.find((entry) => entry.name === name).picture }
             alt={ name }
@@ -136,45 +134,42 @@ class Feedback extends React.Component {
               pontos
             </ScoreMessage>
           </InfosDiv>
-
-          <Link
-            to="/ranking"
-            style={ {
-              display: 'flex',
-              flexDirection: 'row',
-              width: '100%',
-            } }
-          >
-            <RankingButton
-              data-testid="btn-ranking"
-              type="button"
-              onClick={ () => {
-                const { dispatch } = this.props;
-                dispatch(zeroScore());
+          <DivButtons>
+            <Link
+              to="/ranking"
+              style={ {
+                width: '45%',
               } }
             >
-              Ranking
-            </RankingButton>
-          </Link>
-          <Link
-            to="/"
-            style={ {
-              display: 'flex',
-              flexDirection: 'row',
-              width: '100%',
-            } }
-          >
-            <PlayAgain
-              data-testid="btn-play-again"
-              type="button"
-              onClick={ () => {
-                const { dispatch } = this.props;
-                dispatch(zeroScore());
+              <RankingButton
+                data-testid="btn-ranking"
+                type="button"
+                onClick={ () => {
+                  const { dispatch } = this.props;
+                  dispatch(zeroScore());
+                } }
+              >
+                Ranking
+              </RankingButton>
+            </Link>
+            <Link
+              to="/"
+              style={ {
+                width: '45%',
               } }
             >
-              Play Again
-            </PlayAgain>
-          </Link>
+              <PlayAgain
+                data-testid="btn-play-again"
+                type="button"
+                onClick={ () => {
+                  const { dispatch } = this.props;
+                  dispatch(zeroScore());
+                } }
+              >
+                Play Again
+              </PlayAgain>
+            </Link>
+          </DivButtons>
           <FeedbackFooter />
         </BackgroundDiv>
       );
