@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import trivia from '../../images/trivia.png';
+import background from '../../images/background.png';
 
 export const BackgroundDiv = styled.div`
   position: absolute;
@@ -9,8 +10,10 @@ export const BackgroundDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
   background-color: black;
+  background-image: url(${background});
+  background-position: center;
 `;
 
 export const InfosDiv = styled.div`
@@ -106,6 +109,7 @@ export const PlayAgain = styled.button`
 
   color: #FFFFFF;
   z-index: 3;
+
 `;
 
 export const FeedbackFooter = styled.footer`
@@ -178,7 +182,8 @@ export const ScoreMessage = styled.p`
 `;
 
 export const DivButtons = styled.div`
-  width: 40%;
+  width: 50%;
+
   display: flex;
   justify-content: space-between;
 
