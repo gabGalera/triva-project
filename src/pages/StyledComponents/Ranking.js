@@ -13,6 +13,10 @@ export const BackgroundDiv = styled.div`
   height: 60.95rem;
   background: url(${background});
   background-size: cover;
+
+  @media(max-width: 1024px) {
+    height: 50rem;
+  }
 `;
 
 export const WhiteBoardDiv = styled.div`
@@ -26,6 +30,10 @@ export const WhiteBoardDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @media(max-width: 1024px) {
+    width: 90%; 
+  }
 `;
 
 export const LogoTriviaGameDiv = styled.div`
@@ -36,8 +44,8 @@ export const LogoTriviaGameDiv = styled.div`
 
     z-index: 1;
     @media(max-width: 1024px) {
-      width: 0%; 
-      margin-bottom: 0%;
+      height: 20%;
+      width: 45%; 
     }
   `;
 
@@ -63,6 +71,11 @@ export const RankingP = styled.p`
 export const ListDiv = styled.ul`
   width: 70%;
   overflow-y: scroll;
+
+  @media(max-width: 1024px) {
+    width: 90%;
+    padding: 0;
+  }
 `;
 
 export const Items = styled.li`
@@ -75,4 +88,25 @@ export const Items = styled.li`
 
   background: #EBEBEB;
   border-radius: 100px;
+
+  
+`;
+
+export const HomeButton = styled.button`
+  width: 100%;
+  padding: 10px;
+
+  font-family: 'Epilogue';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 150%;
+
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+
+  color: #FFFFFF;
+  background: #2FC18C;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
 `;

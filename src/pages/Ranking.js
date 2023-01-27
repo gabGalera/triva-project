@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { BackgroundDiv, WhiteBoardDiv,
-  LogoTriviaGameDiv, RankingP, ListDiv, Items } from './StyledComponents/Ranking';
+  LogoTriviaGameDiv, RankingP, ListDiv,
+  Items, HomeButton } from './StyledComponents/Ranking';
 
 class Ranking extends React.Component {
   componentDidMount() {
@@ -73,24 +74,15 @@ class Ranking extends React.Component {
         </WhiteBoardDiv>
         <Link
           to="/"
+          style={ {
+            width: '35%',
+          } }
         >
-          <button
+          <HomeButton
             type="button"
-            data-testid="btn-go-home"
-            style={ {
-              // position: 'absolute',
-              width: '78.94%', // 389 / 489
-              height: '45px',
-              left: '10.50%',
-              top: '88%',
-
-              background: '#2FC18C',
-              boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
-              borderRadius: '5px',
-            } }
           >
             Home
-          </button>
+          </HomeButton>
         </Link>
       </BackgroundDiv>
     );
