@@ -1,4 +1,4 @@
-# Recipes App Trybe
+# Trivia
 
 Esse projeto foi elaborado no módulo de front-end da Trybe. Nele foi desenvolvido um jogo web responsivo de perguntas e respostas com Redux e com uma API externa. 
 ## 🚀 Começando o projeto
