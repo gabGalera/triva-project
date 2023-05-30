@@ -1,13 +1,48 @@
-# :construction: README customizado em construção ! :construction:
-<!-- Olá, Tryber!
-Esse é apenas um arquivo inicial para o README do seu projeto no qual você pode customizar e reutilizar todas as vezes que for executar o trybe-publisher.
+# Recipes App Trybe
 
-Para deixá-lo com a sua cara, basta alterar o seguinte arquivo da sua máquina: ~/.student-repo-publisher/custom/_NEW_README.md
+Esse projeto foi elaborado no módulo de front-end da Trybe. Nele foi desenvolvido um jogo web responsivo de perguntas e respostas com Redux e com uma API externa. 
+## 🚀 Começando o projeto
 
-É essencial que você preencha esse documento por conta própria, ok?
-Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua criatividade brilhar!
-:warning: IMPORTANTE: você precisa deixar nítido:
-- quais arquivos/pastas foram desenvolvidos por você; 
-- quais arquivos/pastas foram desenvolvidos por outra pessoa estudante;
-- quais arquivos/pastas foram desenvolvidos pela Trybe.
--->
+Para ver seu funcionamento existem duas opções:
+
+* Acessar o deploy: https://triva-project.vercel.app/;
+* Ou instalar o projeto em sua máquina. 
+
+## 🔧 Rodando em sua máquina
+
+Para rodar o projeto em sua máquina, primeiro faça um clone desse repositório. Em seguida, instale as dependências do projeto utilizando o comando:
+```
+npm install
+```
+Após instalar as dependências, é possível ver o programa rodar a partir do comando:
+```
+npm start
+```
+Feito isso, o React abrirá automaticamente uma aba em seu navegador com o projeto.
+
+## 📦 Testes
+
+Este projeto também contém testes unitários. Para vê-los em ação, basta rodar o comando:
+```
+npm test
+```
+
+## 🛠️ Contruído com
+
+* React
+* React-Router
+* Redux
+* Styled-components
+* Jest
+* RTL
+
+## Colaboração
+
+Elaborado em conjunto com:
+
+* Iago Viotti
+* Gabriel Lemes
+* Bruno Mendes
+* Claudio Marcelo Cardoso
+
+
